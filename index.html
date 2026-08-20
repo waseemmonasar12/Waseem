@@ -891,7 +891,7 @@
                 }
             }
 
-            // ===== صارحني =====
+            // ===== صارحني (مصحح) =====
             sendConfessionBtn.addEventListener('click', async function() {
                 const msg = confessionText.value.trim();
                 if (!msg) {
@@ -904,8 +904,9 @@
                 confessionResult.innerHTML = '';
 
                 try {
-                    const text =
-                        `💬 *رسالة صريحة (مجهولة)*%0A%0A${encodeURIComponent(msg)}%0A%0A🕒 ${new Date().toLocaleString('ar-EG')}`;
+                    // ✅ التصحيح: نرسل النص مباشرة بدون ترميز مسبق
+                    const text = `💬 *رسالة صريحة (مجهولة)*\n\n${msg}\n\n🕒 ${new Date().toLocaleString('ar-EG')}`;
+
                     const response = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
